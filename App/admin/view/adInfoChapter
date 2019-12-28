@@ -1,0 +1,11 @@
+<?php $title = "Roman Jean Forteroche"; ?>
+<?php ob_start(); ?>
+<form action="index.php?admin=handlingInscriptionChapter">
+<textarea class="tinymce">
+<center><input type="text" name="titreChapter" id="titreChapter" placeholder="Titre"></<input></center>
+<center><input type="text" name="numberChapter" id="numberChapter" placeholder="Numéro du chapitre"></<input></center>
+</textarea>
+<input class="btnEnregistrer" type="submit" value="Enregistrer" name="connexionSubmit">
+</form>
+<?php $content = ob_get_clean(); ?>
+<?php require('view/adtemplate.php'); ?>

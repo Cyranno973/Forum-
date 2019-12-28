@@ -1,0 +1,13 @@
+{
+    "name": "cyran/projet5",
+    "authors": [
+        {
+            "name": "Cyranno973",
+            "email": "gs.gouin@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"App\\" : "App"}
+    },
+    "require": {}
+}

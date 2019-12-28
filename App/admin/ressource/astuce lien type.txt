@@ -1,0 +1,14 @@
+http://localhost/Projet4/index.php?admin=ajoutAdmin
+http://localhost/Projet4/index.php?admin='handlingAjoutAdmin'
+
+
+	DocumentRoot "c:/wamp64/www/projet4"
+
+
+	http://localhost/Projet4/index.php?action=showChapters
+
+	http://localhost/Projet4/admin/index.php?admin=handlingAjoutAdmin
+
+
+	  Require all granted
+http://localhost/Projet4/admin/index.php?admin=goListComment
