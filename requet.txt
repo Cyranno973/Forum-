@@ -1,0 +1,42 @@
+utlisateur 
+
+requete
+inscription utilisateur verification js et php
+afficher la liste des forums
+afficher la rubrique
+afficher l'article
+aficcher les commentaires
+meteo json
+- Supprimer des injections XSS dans les données saisies puis réaffichées
+- Supprimer des injections SQL avec PDO
+- Créer de mots de passes sécurisés avec un hachage fiable
+membre
+update membre 
+connexion utilisateur
+ajouter un commentaires
+signaler un commentaire
+- Créer un système de login / logout
+ajouter sujet
+Redzcteur*
+supprimer un sujet 
+suprrimer commentaire
+suprrimer alertes
+ajouter rubrique
+supprimer rubrique
+
+
+supprimer article
+ajout chemin image 
+suppression chemin image
+
+
+Admin
+update membre
+update redacteur
+ajouter membre
+ajouter redacteur
+supprimer membre
+supprimer redacteur
+
+
+
