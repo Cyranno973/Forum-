@@ -1,5 +1,5 @@
 <?php
-require_once("app/model/Manager.php");
+namespace App\model;
 
 class AlertManager extends Manager
 {

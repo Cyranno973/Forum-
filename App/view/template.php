@@ -11,10 +11,10 @@
 
 
 
-    <script src="js/jquery.js"></script>
-    <script src="plugin/tinymce/tinymce.min"></script>
-    <script src="plugin/tinymce/init-tinymce"></script>
-    <link rel='stylesheet' href='css/style.css'>
+    <script src="App/public/js/jquery.js"></script>
+    <script src="App/plugin/tinymce/tinymce.min"></script>
+    <script src="App/plugin/tinymce/init-tinymce"></script>
+    <link rel='stylesheet' href='App/public/css/style.css'>
     <title><?= $title ?></title>
 </head>
 
@@ -45,7 +45,7 @@
                             <li><a href="index.php?action=listComments">Gestion des Commentaires</a></li>
                             <li><a href="index.php?action=listAlerts">Gestion des Alerts</a></li>
                         <?php } ?>
-                        <li><a href="view/deconnexion.php">DECONNEXION</a></li>
+                        <li><a href="App/view/deconnexion.php">DECONNEXION</a></li>
                     <?php } else { ?>
 
 
@@ -87,7 +87,7 @@
 
 
 
-        <script src='js/main.js'></script>
+        <script src='App/public/js/main'></script>
 </body>
 
 </html>

@@ -36,4 +36,4 @@ post_add
 </div>
 <?php $varListChapters->closeCursor(); ?>
 <?php $content = ob_get_clean(); ?>
-<?php require('view/template.php'); ?>
+<?php require('App/view/template.php'); ?>

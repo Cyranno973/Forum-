@@ -37,4 +37,4 @@
 </div>
 <?php $allAlerts->closeCursor(); ?>
 <?php $content = ob_get_clean(); ?>
-<?php require('view/template.php'); ?>
+<?php require('App/view/template.php'); ?>

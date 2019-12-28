@@ -1,19 +1,29 @@
 <?php
-require_once('app/model/PostManager.php');
-require_once('app/model/CommentManager.php');
-require_once('app/model/MembreManager.php');
-require_once('app/model/AlertManager.php');
+namespace App\controller;
+
+use \App\model\PostManager;
+use \App\model\MembreManager;
+use \App\model\CommentManager;
+use \App\model\AlertManager;
+
+
+
+class ControllerFront{
+//  require_once('app/model/PostManager.php');
+//  require_once('app/model/CommentManager.php');
+//  require_once('app/model/MembreManager.php');
+//  require_once('app/model/AlertManager.php');
 
 
 function golistMembres()
 {
     $membreManager = new MembreManager();
     $varListMembres = $membreManager->modelListMembres();
-    require('view/ListMembres.php');
+    require('App/view/ListMembres.php');
 }
 function inscription()
 {
-    require('view/inscription.php');
+    require('App/view/inscription.php');
 }
 function verifyDuplicateInscription()
 {
@@ -24,12 +34,12 @@ function verifyDuplicateInscription()
         header('location:index.php');
     } else {
         $messageError = 'pseudo deja pris';
-        require('view/error.php');
+        require('App/view/error.php');
     }
 }
 function goConnect()
 {
-    require('view/connexion.php');
+    require('App/view/connexion.php');
 }
 function verifyMembre()
 {
@@ -44,7 +54,7 @@ function verifyMembre()
         header('location:index.php');
     } else {
         $messageError = 'Login ou mot de passe incorrect';
-        require('view/error.php');
+        require('App/view/error.php');
     }
 }
 
@@ -54,7 +64,7 @@ function allChapters()
     // allChapters recoit la valeur du return getChapters
     $postManager = new PostManager();
     $varAllChapters = $postManager->getChapters();
-    require('app/view/indexView.php');
+    require('App/view/indexView.php');
 }
 function selectionChapter()
 {
@@ -63,17 +73,17 @@ function selectionChapter()
     $selectionChapter = $postManager->getChapter($_GET['id']);
     $chapterId = $_GET['id'];
     $commentsChapter = $postManager->getcomments($_GET['id']);
-    require('view/indexChapter.php');
+    require('App/view/indexChapter.php');
 }
 function golistChapters()
 {
     $postManager = new PostManager();
     $varListChapters = $postManager->modelListChapters();
-    require('view/ListChapters.php');
+    require('App/view/ListChapters.php');
 }
 function goAddChapters()
 {
-    require('view/addChapter.php');
+    require('App/view/addChapter.php');
 }
 function handlingInscriptionChapter()
 {
@@ -88,7 +98,7 @@ function goUpdateChapter()
     $postManager = new PostManager();
     $varTitleCheck = $postManager->modelinfoUpdateChapter($_GET['id']);
     $varInfochapter = false;
-    require('view/UpdateChapter.php');
+    require('App/view/UpdateChapter.php');
 }
 function gohandlingUpdateChapter()
 {
@@ -108,7 +118,7 @@ function golistComments()
 {
     $commentManager = new CommentManager();
     $allComments = $commentManager->modelListComments();
-    require('view/ListComments.php');
+    require('App/view/ListComments.php');
 }
 function addcomment()
 {
@@ -134,7 +144,7 @@ function golistAlerts()
 {
     $alertManager = new AlertManager();
     $allAlerts = $alertManager->modelListAlerts();
-    require('view/ListAlerts.php');
+    require('App/view/ListAlerts.php');
 }
 function goDeleteAlert()
 {
@@ -148,5 +158,8 @@ function goDeleteAlert()
 
 function errorPage()
 {
-    require('view/error.php');
+    require('App/view/error.php');
+}
+
+
 }

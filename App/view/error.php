@@ -6,4 +6,4 @@
 	<p><a href="index.php"> Retour à la liste des chapitres</a></p>
 </div>
 <?php $content = ob_get_clean(); ?>
-<?php require('view/template.php'); ?>
+<?php require('App/view/template.php'); ?>

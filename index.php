@@ -1,23 +1,40 @@
 <?php
+
 require"vendor/autoload.php";
+
+use \App\controller\ControllerFront;
+use \App\controller\ControllerBack;
+
 try {
 	//si séssion n'existe pas je start
 	if (!isset($_SESSION)) {
 		session_start();
 	}
-	require('app/controller/controller.php');
+	if(isset($_GET['admin'])){
+		header('location:admin/index.php?admin');
+	}
+	
+
 
 	if (isset($_GET['action'])) {
 		if ($_GET['action'] == 'showChapters') {
-			allChapters();
+			$monFront = new controllerFront;
+			$monFront->allChapters();
 		} elseif ($_GET['action'] == 'showChapter') {
 			if (isset($_GET['id']) && $_GET['id'] > 0) {
-				selectionChapter();
+				$monFront = new controllerFront;
+			$monFront->selectionChapter();
+				
 			} else {
 				throw new Exception('id  perdu introuvabble');
 			}
-		} elseif ($_GET['action'] == 'inscription') {
-			inscription();
+		} elseif ($_GET['action'] == 'admin') {
+			$monFront = new controllerFront;
+			$monFront->goAdmin();
+		}elseif ($_GET['action'] == 'inscription') {
+			$monFront = new controllerFront;
+			$monFront->inscription();
+			
 		} elseif ($_GET['action'] == 'inscriptionTraitement') {
 
 			if (!empty($_POST['pseudoInscription']) and !empty($_POST['passwordInscription']) and !empty($_POST['passwordInscription2']) and !empty($_POST['emailInscription'])) {
@@ -27,47 +44,60 @@ try {
 				$_POST['emailInscription'] = strip_tags($_POST['emailInscription']);
 				if ($_POST['passwordInscription'] == $_POST['passwordInscription2']) {
 
-					verifyDuplicateInscription();
+					$monFront = new controllerFront;
+					$monFront->verifyDuplicateInscription();
+					
 				}
 			} else {
 
-				inscription();
+				$monFront = new controllerFront;
+					$monFront->inscription();
 			}
 		} elseif ($_GET['action'] == 'traitementMembre') {
 
 			if (!empty($_POST['pseudoConnect']) and !empty($_POST['passwordConnect'])) {
 				$_POST['pseudoConnect'] = strip_tags($_POST['pseudoConnect']);
 				$_POST['passwordConnect'] = strip_tags($_POST['passwordConnect']);
-				verifyMembre();
+				$monFront = new controllerFront;
+					$monFront->verifyMembre();
+				
 			} else {
-				goConnect();
+				$monFront = new controllerFront;
+					$monFront->goConnect();
+				
 			}
 		} elseif ($_GET['action'] == 'ajoutComment') {
 			if (!empty($_POST['message'])) {
 				$_POST['message'] = htmlspecialchars($_POST['message']);
 				if (!empty($_SESSION['membre'])) {
-					addComment();
+					$monFront = new controllerFront;
+					$monFront->addComment();
+					
 				} else {
 					throw new Exception('Veuillez vous connectez');
 				}
 			} else {
 
 				$messageError = 'veuillez inserez un message';
-				require('view/error.php');
+				require('App/view/error.php');
 			}
 		} elseif ($_GET['action'] == 'connexion') {
-			goConnect();
-		}/* elseif ($_GET['action'] == 'admin') {
-		 	goAdmin();
-		}*/ elseif ($_GET['action'] == 'listChapters') {
+			$monFront = new controllerFront;
+				$monFront->goConnect();
+			
+		} elseif ($_GET['action'] == 'listChapters') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				golistChapters();
+				$monFront = new controllerFront;
+				$monFront->golistChapters();
+				
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'addChapters') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				goAddChapters();
+				$monFront = new controllerFront;
+				$monFront->goAddChapters();
+				
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
@@ -76,7 +106,9 @@ try {
 				if (!empty($_POST['titleChapter']) and !empty($_POST['chapterContent'])) {
 					$_POST['titleChapter'] = htmlspecialchars($_POST['titleChapter']);
 					
-					handlingInscriptionChapter();
+					$monFront = new controllerFront;
+				$monFront->handlingInscriptionChapter();
+					
 				} else {
 
 					throw new Exception('Votre document ou titre est vide');
@@ -86,13 +118,16 @@ try {
 			}
 		} elseif ($_GET['action'] == 'addAlert') {
 			if ((!empty($_GET['idcomment'])) and (!empty($_SESSION['idUser']))) {
+				$monFront = new controllerFront;
+				$monFront->goAddAlert();
 				
-				goAddAlert();
 			}
 		} elseif ($_GET['action'] == 'goUpdateChapter') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
 				if (!empty($_GET['id'])) {
-					goUpdateChapter();
+					$monFront = new controllerFront;
+				$monFront->goUpdateChapter();
+					
 				}
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
@@ -100,45 +135,59 @@ try {
 		} elseif ($_GET['action'] == 'handlingUpdateChapter') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
 				if (!empty($_GET['id'])) {
-					gohandlingUpdateChapter();
+					$monFront = new controllerFront;
+					$monFront->gohandlingUpdateChapter();
+					
 				}
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'listMembres') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				golistMembres();
+				$monFront = new controllerFront;
+					$monFront->golistMembres();
+				
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'listComments') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				golistComments();
+				$monFront = new controllerFront;
+					$monFront->golistComments();
+				
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'listAlerts') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				golistAlerts();
+				$monFront = new controllerFront;
+					$monFront->golistAlerts();
+				
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} 
 		elseif ($_GET['action'] == 'goDeleteComment') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				goDeleteComment();
+				$monFront = new controllerFront;
+					$monFront->goDeleteComment();
+				
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'goDeleteChapter') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				goDeleteChapter();
+				$monFront = new controllerFront;
+					$monFront->goDeleteChapter();
+				
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'goDeleteComment') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				goDeleteComment();
+				$monFront = new controllerFront;
+					$monFront->goDeleteComment();
+				
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
@@ -146,7 +195,9 @@ try {
 			if ((!empty($_SESSION['membre'])) and  ($_SESSION['powerUser'] == 1)) {
 
 				if (!empty($_GET['id'])) {
-					goDeleteAlert();
+					$monFront = new controllerFront;
+					$monFront->goDeleteAlert();
+					
 					
 				} else {
 					throw new Exception('Vous devez être administrateur  pour y acceder');
@@ -154,12 +205,13 @@ try {
 			}
 		}
 	} else {
-		allChapters();
+		$monFront = new controllerFront;
+		$monFront->allChapters();
 	}
 } catch (Exception $e) {
 
 	$messageError = $e->getMessage();
-	require('view/error.php');
+	require('App/view/error.php');
 }
 
 
