@@ -28,6 +28,9 @@ try {
 			} else {
 				throw new Exception('id  perdu introuvabble');
 			}
+		}elseif ($_GET['action'] == 'createSujet') {
+			$monFront = new controllerFront;
+			$monFront->goCreateSujet();
 		} elseif ($_GET['action'] == 'admin') {
 			$monFront = new controllerFront;
 			$monFront->goAdmin();

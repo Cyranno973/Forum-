@@ -9,14 +9,9 @@ use \App\model\AlertManager;
 
 
 class ControllerFront{
-//  require_once('app/model/PostManager.php');
-//  require_once('app/model/CommentManager.php');
-//  require_once('app/model/MembreManager.php');
-//  require_once('app/model/AlertManager.php');
 
 function goHome()
 {
-
     require('App/view/home.php');
 }
 function golistMembres()
@@ -27,7 +22,7 @@ function golistMembres()
 }
 function inscription()
 {
-    require('App/view/inscription.php');
+    require('App/view/users/inscription.php');
 }
 function verifyDuplicateInscription()
 {
@@ -41,9 +36,13 @@ function verifyDuplicateInscription()
         require('App/view/error.php');
     }
 }
+function goCreateSujet()
+{
+    require('App/view/sujets/createSujet.php');
+}
 function goConnect()
 {
-    require('App/view/connexion.php');
+    require('App/view/users/connexion.php');
 }
 function goDeconnexion()
 {

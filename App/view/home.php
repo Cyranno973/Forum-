@@ -1,13 +1,7 @@
 <?php $title = "Cyra Forums"; ?>
 <?php ob_start(); ?>
 
-<div class="header">
-		<div class="logo">
-			<i class="fa fa-tachometer"></i>
-			<span>Brand</span>
-		</div>
-		<a href="#" class="nav-trigger"><span></span></a>
-	</div>
+
 
 	<div class="main-content">
 		<div class="title">
