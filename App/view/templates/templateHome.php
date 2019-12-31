@@ -26,7 +26,7 @@
 	</div>
 <div class="side-nav">
 		<div class="logo">
-			<span>CyraTech</span>
+			<span><a href="index.php?">CyraTech</a></span>
 		</div>	
 		<nav>
 	
@@ -36,24 +36,26 @@
 				<span ><?= $_SESSION['membre']?></span>
 				</li>
 					<?php if ($_SESSION['powerUser'] == 0) :?>
+						<li><a href="index.php?">Home</a></li>
 						<li><a href="index.php?action=listComments">Profile</a></li>
 						<li><a href="index.php?action=createSujet">Creer un sujet</a></li>
 					<li><a href="index.php?action=deconnexion">DECONNEXION</a>
 					<i class="fas fa-sign-out-alt"></i></li>
 				
 					<?php elseif ($_SESSION['powerUser'] == 1) :?>
+						<li><a href="index.php?">Home</a></li>
 						<li><a href="index.php?action=listComments">Profile</a></li>
 						<li><a href="index.php?action=createSujet">Creer un sujet</a></li>
 					<li><a href="index.php?action=listComments">Gestion des Commentaires</a></li>
                     <li><a href="index.php?action=listAlerts">Gestion des Alerts</a></li>
-					<li>
-					
+					<li>	
 					<span><i class="fas fa-sign-out-alt"></i></span>
 					<span><a href="index.php?action=deconnexion">DECONNEXION</a></span>
 					</li>
 				
 
 				<?php elseif ($_SESSION['powerUser'] == 2) :?>
+					<li><a href="index.php?">Home</a></li>
 					<li><a href="index.php?action=listComments">Profile</a></li>
 					<li>
 					<i class="fas fa-list-alt"></i>
@@ -63,13 +65,13 @@
 					<li><a href="index.php?action=deconnexion">DECONNEXION</a></li>
 
 					<?php elseif ($_SESSION['powerUser'] == 3) :?>
+						<li><a href="index.php?">Home</a></li>
 						<li><a href="index.php?action=listComments">Profile</a></li>
-						<li><a href="index.php?action=createSujet">Creer un sujet</a></li>
 						<li><a href="index.php?action=listMembres">Gestion des Membres</a></li>
 					<li><a href="index.php?action=listComments">Gestion des Commentaires</a></li>
 					<li><a href="index.php?action=listAlerts">Gestion des Alerts</a></li>
-					<li><a href="index.php?action=listChapters">Gestion des Sujets</a></li>
-						<li><a href="index.php?action=listChapters">Gestion des Rubrique</a></li>
+					<li><a href="index.php?action=listSujet">Gestion des Sujets</a></li>
+						<li><a href="index.php?action=listRubric">Gestion des Rubrique</a></li>
 					<li><a href="index.php?action=deconnexion">DECONNEXION</a></li>
 				<?php endif; ?>	
 			

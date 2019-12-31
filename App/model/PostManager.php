@@ -5,6 +5,28 @@ namespace App\model;
 class PostManager extends Manager
 {
 
+	
+	public function modelListRubric()
+	{	
+		$db = $this->dbConnect();
+		$req = $db->query('SELECT * FROM rubrics ');
+		
+		// print_r($req->fetch());
+		return $req;
+	}
+	public function modelCreateRubric($pathImg,$title)
+	{	
+		$db = $this->dbConnect();
+		$req = $db->prepare('INSERT INTO rubrics(image, title_rubric) VALUES(:image, :title_rubric)');
+		$req->execute(array(
+			'image' => $pathImg,
+			'title_rubric' => $title,
+		));
+		return true;
+	}
+	
+	
+	
 	public function getChapters()
 	{
 		$db = $this->dbConnect();
