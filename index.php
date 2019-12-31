@@ -35,6 +35,10 @@ try {
 			$monFront = new controllerFront;
 			$monFront->inscription();
 			
+		}elseif ($_GET['action'] == 'deconnexion') {
+			$monFront = new controllerFront;
+			$monFront->goDeconnexion();
+			
 		} elseif ($_GET['action'] == 'inscriptionTraitement') {
 
 			if (!empty($_POST['pseudoInscription']) and !empty($_POST['passwordInscription']) and !empty($_POST['passwordInscription2']) and !empty($_POST['emailInscription'])) {
@@ -206,10 +210,9 @@ try {
 		}
 	} else {
 		$monFront = new controllerFront;
-		$monFront->allChapters();
+		$monFront->goHome();
 	}
 } catch (Exception $e) {
-
 	$messageError = $e->getMessage();
 	require('App/view/error.php');
 }

@@ -45,7 +45,7 @@
                             <li><a href="index.php?action=listComments">Gestion des Commentaires</a></li>
                             <li><a href="index.php?action=listAlerts">Gestion des Alerts</a></li>
                         <?php } ?>
-                        <li><a href="App/view/deconnexion.php">DECONNEXION</a></li>
+                        <li><a href="index.php?action=deconnexion">DECONNEXION</a></li>
                     <?php } else { ?>
 
 

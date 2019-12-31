@@ -13,7 +13,7 @@ class MembreManager extends Manager
 	function checkPseudo($pseudo)
 	{
 		$db = $this->dbConnect();
-		$check = $db->prepare('SELECT pseudo FROM membre WHERE pseudo= ?');
+		$check = $db->prepare('SELECT pseudo FROM users WHERE pseudo= ?');
 		$check->execute(array($pseudo));
 		$count = $check->rowCount();
 		if ($count > 0) {
@@ -26,7 +26,7 @@ class MembreManager extends Manager
 	{
 
 		$db = $this->dbConnect();
-		$req = $db->prepare('INSERT INTO membre(pseudo, pass, mail) VALUES(:pseudo, :pass, :mail)');
+		$req = $db->prepare('INSERT INTO users(pseudo, pass, mail) VALUES(:pseudo, :pass, :mail)');
 
 		$req->execute(array(
 			'pseudo' => $pseudo,
@@ -51,7 +51,7 @@ class MembreManager extends Manager
 	function checkMembre($pseudo)
 	{
 		$db = $this->dbConnect();
-		$check = $db->prepare('SELECT id, pseudo, droitUser, pass FROM membre WHERE pseudo = ?');
+		$check = $db->prepare('SELECT id, pseudo, droitUser, pass FROM users WHERE pseudo = ?');
 		$check->execute(array($pseudo));
 		$infoUser = $check->fetch();
 		return $infoUser;

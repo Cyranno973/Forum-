@@ -40,3 +40,12 @@ supprimer redacteur
 
 
 
+
+
+rubric 
+posiibiliter template admin modo  usuer
+3 compte users admin modreateur membre
+
+pagination
+telecjharger des fichier sur le serveur
+php alternativ

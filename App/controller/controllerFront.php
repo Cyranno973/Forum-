@@ -14,7 +14,11 @@ class ControllerFront{
 //  require_once('app/model/MembreManager.php');
 //  require_once('app/model/AlertManager.php');
 
+function goHome()
+{
 
+    require('App/view/home.php');
+}
 function golistMembres()
 {
     $membreManager = new MembreManager();
@@ -40,6 +44,12 @@ function verifyDuplicateInscription()
 function goConnect()
 {
     require('App/view/connexion.php');
+}
+function goDeconnexion()
+{
+    session_start();
+    session_destroy();
+    header('Location: index.php'); 
 }
 function verifyMembre()
 {
