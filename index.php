@@ -30,6 +30,10 @@ try {
 		}elseif ($_GET['action'] == 'listSujet') {
 			$monBack = new controllerBack;
 			$monBack->goListSujet();
+		}elseif ($_GET['action'] == 'goUpdateSujet') {
+			
+			$monBack = new controllerBack;
+			 $monBack->goUpdateSujet();
 		}  elseif ($_GET['action'] == 'listRubric') {
 			$monFront = new controllerFront;
 			$monFront->goListRubric();
@@ -48,7 +52,28 @@ try {
 			} else {
 				throw new Exception('Vous devez être membre  pour y acceder');
 			}
-		} elseif ($_GET['action'] == 'createRubric') {
+		}elseif ($_GET['action'] == 'goHandlingUpdateSujet') {
+			if ((!empty($_SESSION['membre']))) {
+			   if (!empty($_POST['nameSujet']) and !empty($_POST['sujetContent']) and !empty($_POST['fname'])) {
+				   $_POST['nameSujet'] = htmlspecialchars($_POST['nameSujet']);
+				//    echo $_GET['id'];
+				//    echo $_POST['nameSujet'];
+				//    echo  $_SESSION['idUser'];
+				//    echo $_POST['sujetContent'];
+				//    echo$_POST['fname'];
+		
+		
+				   $monBack = new controllerBack;
+		   $monBack->goHandlingUpdateSujet();
+				   
+			   } else {
+
+				   throw new Exception('Votre document ou titre est vide');
+			   }
+		   } else {
+			   throw new Exception('Vous devez être membre  pour y acceder');
+		   }
+	   } elseif ($_GET['action'] == 'createRubric') {
 			if (!empty($_POST['nameRubric']) and !empty($_FILES['file'])) {
 				// print_r($_FILES['file']);
 				$monBack = new controllerBack;
@@ -74,10 +99,19 @@ try {
 			} else {
 				throw new Exception('Veuillez vous aza1 ');
 			}
+		}elseif ($_GET['action'] == 'goDeleteSujet') {
+			
+			if  (isset($_GET['id']) && $_GET['id'] > 0) {
+				
+				 $monBack = new controllerBack;
+				  $monBack->goDeleteSujet();
+			} else {
+				throw new Exception('Veuillez vous aza5 ');
+			}
 		} elseif ($_GET['action'] == 'goHandlingUpdateRubric') {
 			if  (isset($_GET['id']) && $_GET['id'] > 0) {
 			$monBack = new controllerBack;
-			// print_r($_FILES['file']);
+		
 			 $monBack->goHandlingUpdateRubric();
 		} else {
 			throw new Exception('Veuillez vous aza2 ');

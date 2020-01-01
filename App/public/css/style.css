@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,900&display=swap");
-@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Gloria+Hallelujah&display=swap");
 * {
   box-sizing: border-box;
 }
@@ -10,7 +10,6 @@ body {
   background-color: #d5dae5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
 }
 .header {
   position: absolute;
@@ -355,10 +354,8 @@ img {
   width: 100%;
   min-height: 500px;
   height: 70vh;
-
 }
 .containerList {
- 
   padding: 20px;
   box-shadow: 0 5px 50px rgba(0, 0, 0, 1);
   background-color: #35475e;
@@ -384,13 +381,13 @@ img {
   color: #fff;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
-   transform: scale(1); 
-   transition: 0.5 all ease-in;
-   font-weight: bold;
+  transform: scale(1);
+  transition: 0.5 all ease-in;
+  font-weight: bold;
 }
 
-.containerList ul li:hover{
- transform: scale(1.1);
+.containerList ul li:hover {
+  transform: scale(1.1);
 }
 .containerList .number {
   padding: 10px;
@@ -414,22 +411,20 @@ img {
   margin: 0 5px;
   border-radius: 5px;
 }
-.container_form_rubric{
-padding: 3rem 1rem;
-	height: 200px;
-
+.container_form_rubric {
+  padding: 3rem 1rem;
+  height: 200px;
 }
-.container_form_rubric input::placeholder{
-color: #eee;
-
+.container_form_rubric input::placeholder {
+  color: #eee;
 }
 
 /* formuilaire */
 /* formuilaire */
 /* formuilaire */
 
-textarea.tinymce{
-/* 
+textarea.tinymce {
+  /* 
   width: 400px;
   height: 500px;
   margin: 0;

@@ -17,7 +17,7 @@ class PostManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT * FROM sujets');
 		return $req;
-		
+
 	}
 	public function modelCreateRubric($pathImg,$title)
 	{	
@@ -44,9 +44,28 @@ class PostManager extends Manager
 		
 	public function modelCheckRubric($id)
 	{	
-		echo$id;
+		
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT * FROM rubrics WHERE id_rubric= ?');
+		$req->execute(array($id));
+		// print_r($req);
+	// TODO	var_dump($req->fetch());
+		// print_r($req->fetch());
+		$count = $req->rowCount();
+		if ($count > 0) {
+		
+			$check = $req->fetch();
+			return $check;
+		} else {
+			
+			return  false;
+		}
+	}
+	public function modelCheckSujet($id)
+	{	
+		
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT * FROM Sujets WHERE id_sujet= ?');
 		$req->execute(array($id));
 		// print_r($req);
 	// TODO	var_dump($req->fetch());
@@ -72,6 +91,19 @@ class PostManager extends Manager
 		));
 		return true;
 	}
+	function  modelHandlingUpdateSujet($id_sujet, $title_sujet, $id_user, $content, $id_rubrique)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('UPDATE sujets SET title_sujet= :title_sujet, id_user= :id_user, content= :content, id_rubrique= :id_rubrique  WHERE id_sujet= :id_sujet');
+		$req->execute(array(
+			'id_sujet' => $id_sujet,
+			'title_sujet' => $title_sujet,
+			'id_user' => $id_user,
+			'content' => $content,
+			'id_rubrique' => $id_rubrique
+		));
+		return true;
+	}
 	function modelDeleteRubric($id)
 	{
 		$db = $this->dbConnect();
@@ -79,13 +111,23 @@ class PostManager extends Manager
 		$req->execute(array($id));
 		return $req;
 	}
-	public function getChapters()
+	function modelDeleteSujet($id)
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT id, title, content FROM chapter ORDER BY id DESC LIMIT 0, 5 ');
+		$req = $db->prepare('DELETE FROM sujets WHERE id_sujet = ?');
+		$req->execute(array($id));
 		return $req;
 	}
-
+	public function modelRubricUser($id)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id_rubric, title_rubric, id_sujet FROM rubrics r, sujets s WHERE r.id_rubric = s.id_rubrique AND  id_sujet= ?');
+		$req->execute(array($id));
+		//reqGetChapter recoit le tableau sql de la fonction fetch
+		$reqGetChapter = $req->fetch();
+		// sa renvoie la valeur de $reqGetChapter qui est un tableau sql
+		return $reqGetChapter;
+	}
 	public function getChapter($chapterId)
 	{
 		$db = $this->dbConnect();
@@ -96,6 +138,15 @@ class PostManager extends Manager
 		// sa renvoie la valeur de $reqGetChapter qui est un tableau sql
 		return $reqGetChapter;
 	}
+
+	// public function getChapters()
+	// {
+	// 	$db = $this->dbConnect();
+	// 	$req = $db->query('SELECT id, title, content FROM chapter ORDER BY id DESC LIMIT 0, 5 ');
+	// 	return $req;
+	// }
+
+
 	public function getcomments($chapterId)
 	{
 		$db = $this->dbConnect();

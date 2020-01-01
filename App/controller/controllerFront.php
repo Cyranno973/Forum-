@@ -61,7 +61,7 @@ function verifyMembre()
     $membreManager = new MembreManager();
     $membrePresent = $membreManager->checkMembre($_POST['pseudoConnect']);
     $isPasswordCorrect = password_verify($_POST['passwordConnect'], $membrePresent['pass']);
-    echo $isPasswordCorrect;
+    // echo $isPasswordCorrect;
     if ($isPasswordCorrect) {
         $_SESSION['membre'] = $_POST['pseudoConnect'];
         $_SESSION['idUser'] = $membrePresent['id'];

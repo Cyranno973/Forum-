@@ -14,6 +14,30 @@ class ControllerBack{
 		 header('location:index?action=listSujet');
 	}
 
+	function goUpdateSujet()
+	{
+		
+		$postManager = new PostManager();
+		$varListSujet = $postManager->modelListSujet();
+		$varListRubric = $postManager->modelListRubric();
+		$varRubricUser = $postManager->modelRubricUser($_GET['id']);
+
+		$varCheckRubric = $postManager->modelCheckSujet($_GET['id']);
+		 require('App/view/sujets/updateSujet.php');
+	}
+	function goHandlingUpdateSujet()
+	{
+		
+		$postManager = new PostManager();
+		// echo$_GET['id'];
+		// echo $_POST['nameSujet'];
+		// echo$_SESSION['idUser'];
+		// echo$_POST['sujetContent'];
+		// echo$_POST['fname'];
+		$varHandlingUpdateSujet = $postManager->modelHandlingUpdateSujet( $_GET['id'], $_POST['nameSujet'], $_SESSION['idUser'], $_POST['sujetContent'],$_POST['fname']);
+		print_r($varHandlingUpdateSujet);
+		//header('location:index?action=listSujet');
+	}
 
 	function goListSujet()
 	{
@@ -21,7 +45,7 @@ class ControllerBack{
 		$postManager = new PostManager();
 		$varListRubric = $postManager->modelListRubric();
 		$varListSujet = $postManager->modelListSujet();
-		// $varListSujet = $postManager->modelCreateSujet();
+	
 		
 		  require('App/view/sujets/listSujet.php');
 	}
@@ -73,7 +97,7 @@ class ControllerBack{
 
 	function goUpdateRubric()
 	{
-		echo$_GET['id'];
+		
 		$postManager = new PostManager();
 		$varListRubric = $postManager->modelListRubric();
 		$varCheckRubric = $postManager->modelCheckRubric($_GET['id']);
@@ -98,7 +122,7 @@ class ControllerBack{
 					$fileNameNew = uniqid('', true) . "." . $fileActualExt;
 					$fileDestination = 'App/public/img/' . $fileNameNew;
 					move_uploaded_file($fileTmpName, 	$fileDestination);
-					echo$fileDestination;
+					
 				} else {
 					echo "Votre fichier est trop grand";
 				}
@@ -110,7 +134,7 @@ class ControllerBack{
 		}
 		$postManager = new PostManager();
 			$varUpdateRubric = $postManager->modelUpdateRubric($_GET['id'], $titleRubric, $fileDestination);
-	//	header('location:index?action=listRubric');
+		header('location:index?action=listRubric');
 	}
 	function goDeleteRubric()
 {
@@ -118,6 +142,13 @@ class ControllerBack{
     $postManager = new PostManager();
     $varDeleteRubric = $postManager->modelDeleteRubric($_GET['id']);
     header('location:index?action=listRubric');
+}
+function goDeleteSujet()
+{
+    
+    $postManager = new PostManager();
+    $varDeleteRubric = $postManager->modelDeleteSujet($_GET['id']);
+    header('location:index?action=listSujet');
 }
 
 }
