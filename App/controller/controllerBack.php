@@ -7,7 +7,24 @@ use \App\model\CommentManager;
 use \App\model\AlertManager;
 
 class ControllerBack{
+	function goCreateSujet()
+	{
+		$postManager = new PostManager();
+		$varCreateSujet = $postManager->modelCreateSujet( $_POST['nameSujet'], $_SESSION['idUser'], $_POST['sujetContent'],$_POST['fname']);
+		 header('location:index?action=listSujet');
+	}
 
+
+	function goListSujet()
+	{
+	
+		$postManager = new PostManager();
+		$varListRubric = $postManager->modelListRubric();
+		$varListSujet = $postManager->modelListSujet();
+		// $varListSujet = $postManager->modelCreateSujet();
+		
+		  require('App/view/sujets/listSujet.php');
+	}
 
 	function goCreateRubric()
 	{
@@ -61,8 +78,6 @@ class ControllerBack{
 		$varListRubric = $postManager->modelListRubric();
 		$varCheckRubric = $postManager->modelCheckRubric($_GET['id']);
 		 require('App/view/rubrics/updateRubric.php');
-			
-	
 	}
 	function goHandlingUpdateRubric()
 	{

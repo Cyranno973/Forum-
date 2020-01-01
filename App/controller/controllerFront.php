@@ -45,10 +45,7 @@ function goListRubric()
     $varListRubric = $postManager->modelListRubric();
     require('App/view/rubrics/listRubric.php');
 }
-function goCreateSujet()
-{
-    require('App/view/sujets/createSujet.php');
-}
+
 function goConnect()
 {
     require('App/view/users/connexion.php');

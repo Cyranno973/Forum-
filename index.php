@@ -27,9 +27,27 @@ try {
 			} else {
 				throw new Exception('id  perdu introuvabble');
 			}
-		} elseif ($_GET['action'] == 'listRubric') {
+		}elseif ($_GET['action'] == 'listSujet') {
+			$monBack = new controllerBack;
+			$monBack->goListSujet();
+		}  elseif ($_GET['action'] == 'listRubric') {
 			$monFront = new controllerFront;
 			$monFront->goListRubric();
+		} elseif ($_GET['action'] == 'createSujet') {
+			 if ((!empty($_SESSION['membre']))) {
+				if (!empty($_POST['nameSujet']) and !empty($_POST['sujetContent']) and !empty($_POST['fname'])) {
+					$_POST['nameSujet'] = htmlspecialchars($_POST['nameSujet']);
+					// echo$_POST['fname'];
+					$monBack = new controllerBack;
+			$monBack->goCreateSujet();
+					
+				} else {
+
+					throw new Exception('Votre document ou titre est vide');
+				}
+			} else {
+				throw new Exception('Vous devez être membre  pour y acceder');
+			}
 		} elseif ($_GET['action'] == 'createRubric') {
 			if (!empty($_POST['nameRubric']) and !empty($_FILES['file'])) {
 				// print_r($_FILES['file']);
@@ -64,9 +82,6 @@ try {
 		} else {
 			throw new Exception('Veuillez vous aza2 ');
 		}
-		}  elseif ($_GET['action'] == 'createSujet') {
-			$monFront = new controllerFront;
-			$monFront->goCreateSujet();
 		} elseif ($_GET['action'] == 'admin') {
 			$monFront = new controllerFront;
 			$monFront->goAdmin();

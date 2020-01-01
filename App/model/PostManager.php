@@ -12,6 +12,13 @@ class PostManager extends Manager
 		$req = $db->query('SELECT * FROM rubrics ORDER BY id_rubric DESC');
 		return $req;
 	}
+	public function modelListSujet()
+	{	
+		$db = $this->dbConnect();
+		$req = $db->query('SELECT * FROM sujets');
+		return $req;
+		
+	}
 	public function modelCreateRubric($pathImg,$title)
 	{	
 		$db = $this->dbConnect();
@@ -19,6 +26,18 @@ class PostManager extends Manager
 		$req->execute(array(
 			'image' => $pathImg,
 			'title_rubric' => $title,
+		));
+		return true;
+	}
+	public function modelCreateSujet($title,$iduser,$content, $idrubric)
+	{	
+		$db = $this->dbConnect();
+		$req = $db->prepare('INSERT INTO sujets(title_sujet, id_user, content, id_rubrique) VALUES(:title_sujet, :id_user, :content, :id_rubrique)');
+		$req->execute(array(
+			'title_sujet' => $title,
+			'id_user' => $iduser,
+			'content' => $content,
+			'id_rubrique' => $idrubric
 		));
 		return true;
 	}
