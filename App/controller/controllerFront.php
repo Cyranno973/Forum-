@@ -12,6 +12,8 @@ class ControllerFront{
 
 function goHome()
 {
+    $postManager = new PostManager();
+    $varListRubric = $postManager->modelListRubric();
     require('App/view/home.php');
 }
 function golistMembres()
@@ -35,6 +37,13 @@ function verifyDuplicateInscription()
         $messageError = 'pseudo deja pris';
         require('App/view/error.php');
     }
+}
+function goListRubric()
+{
+    
+    $postManager = new PostManager();
+    $varListRubric = $postManager->modelListRubric();
+    require('App/view/rubrics/listRubric.php');
 }
 function goCreateSujet()
 {

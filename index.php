@@ -28,25 +28,28 @@ try {
 				throw new Exception('id  perdu introuvabble');
 			}
 		} elseif ($_GET['action'] == 'listRubric') {
-			$monBack = new controllerBack;
-			$monBack->goListRubric();
+			$monFront = new controllerFront;
+			$monFront->goListRubric();
 		} elseif ($_GET['action'] == 'createRubric') {
 			if (!empty($_POST['nameRubric']) and !empty($_FILES['file'])) {
-
-				
-
-
-				// print_r($_FILES['file']);
-				// echo$_POST['nameRubric'];
-				// echo$_FILES['rubricImg']['name'];
-				// echo$_FILES['rubricImg']['tmp_name'];
-				// print_r($_FILES['rubricImg']);
 				$monBack = new controllerBack;
 				$monBack->goCreateRubric();
 			} else {
 				throw new Exception('Veuillez vous ');
 			}
-		} elseif ($_GET['action'] == 'createSujet') {
+		} elseif ($_GET['action'] == 'goUpdateRubric') {
+			
+			if  (isset($_GET['id']) && $_GET['id'] > 0) {
+				
+				 $monBack = new controllerBack;
+				 $monBack->goUpdateRubric();
+			} else {
+				throw new Exception('Veuillez vous aza ');
+			}
+		} elseif ($_GET['action'] == 'goHandlingUpdateRubric') {
+			$monBack = new controllerBack;
+			$monBack->goHandlingUpdateRubric();
+		}  elseif ($_GET['action'] == 'createSujet') {
 			$monFront = new controllerFront;
 			$monFront->goCreateSujet();
 		} elseif ($_GET['action'] == 'admin') {

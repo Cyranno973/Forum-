@@ -9,9 +9,7 @@ class PostManager extends Manager
 	public function modelListRubric()
 	{	
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT * FROM rubrics ');
-		
-		// print_r($req->fetch());
+		$req = $db->query('SELECT * FROM rubrics ORDER BY id_rubric DESC');
 		return $req;
 	}
 	public function modelCreateRubric($pathImg,$title)
@@ -24,7 +22,35 @@ class PostManager extends Manager
 		));
 		return true;
 	}
-	
+		
+	public function modelCheckRubric($id)
+	{	
+		
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT * FROM rubrics WHERE id= ?');
+		$req->execute(array($id));
+		print_r($req->fetch());
+		$count = $req->rowCount();
+		if ($count > 0) {
+		
+			$check = $req->fetch();
+			return $check;
+		} else {
+			echo'yuuu';
+			return  false;
+		}
+	}
+	function  modelUpdateRubric($id,  $title, $path)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('UPDATE rubrics SET image= :image, title_rubric= :title_rubric  WHERE id= :id');
+		$req->execute(array(
+			'title_rubric' => $title,
+			'image' => $path,
+			'id' => $id
+		));
+		return true;
+	}
 	
 	
 	public function getChapters()

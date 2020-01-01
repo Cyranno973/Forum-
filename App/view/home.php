@@ -10,35 +10,30 @@
 		</div>
 		<div class="main">
 
-
+		<?php while ($data = $varListRubric->fetch()) : ?>
 			<div class="widget">
 			<a href="">
 				<div> 
-					<a class="title-rubric" href="">HTML CSS</a>
+					<a class="title-rubric" href=""><?= $data['title_rubric']; ?></a>
 				 </div>
 				 <div class="overlayImg" > <!--TODO image cliquante -->
-					<img src="app/public/img/bg.jpg" alt="">
+					<img src="<?=$data['image']; ?>" alt="">
 				</div>
 				</a>
 			</div>
-			<div class="widget">
+		<?php endwhile; ?>
+			<!-- <div class="widget">
 				<div> 
 					<a class="title-rubric" href="">JAVA SCRIPT</a>
 				 </div>
 				<div class="overlayImg" ><img src="app/public/img/bg1.jpg" alt=""></div>
-			</div>
-
-			<!-- <div class="widget">
-			<div > 
-				<a class="title-rubric" href="">JAVA SCRIPT</a> 
-			</div>
-			<div class="overlayImg" ></div>
-				<div class="chart"></div>
 			</div> -->
+
+		
 		
 		</div>
 
 
 
 <?php $content = ob_get_clean(); ?>
-<?php require('templates/templateHome.php'); ?>
+<?php require('App/view/templates/templateHome.php'); ?>

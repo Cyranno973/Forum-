@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,900&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah&display=swap');
 * {
   box-sizing: border-box;
 }
@@ -8,6 +10,7 @@ body {
   background-color: #d5dae5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 }
 .header {
   position: absolute;
@@ -349,18 +352,22 @@ img {
 /* List rubric */
 .backcontainerlist {
   position: relative;
+ 
   background-color: #eee;
   width: 100%;
+  min-height: 500px;
   height: 70vh;
 }
 .containerList {
-  position: absolute;
+  position: fixed;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 60%;
+  transform: translate(-16%, -50%);
   padding: 20px;
   box-shadow: 0 5px 50px rgba(0, 0, 0, 1);
   background-color: #35475e;
+  height:400px;
+  overflow-x: hidden;
 }
 .containerList h1 {
   margin: 0 0 30px 0;
@@ -409,6 +416,16 @@ img {
   margin: 0 5px;
   border-radius: 5px;
 }
+.container_form_rubric{
+padding: 3rem 1rem;
+	height: 200px;
+
+}
+.container_form_rubric input::placeholder{
+color: #eee;
+
+}
+
 /* formuilaire */
 /* formuilaire */
 /* formuilaire */

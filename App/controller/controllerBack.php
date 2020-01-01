@@ -8,13 +8,7 @@ use \App\model\AlertManager;
 
 class ControllerBack{
 
-	function goListRubric()
-	{
-		
-		$postManager = new PostManager();
-		$varListRubric = $postManager->modelListRubric();
-		require('App/view/rubrics/listRubric.php');
-	}
+
 	function goCreateRubric()
 	{
 		$titleRubic = $_POST['nameRubric'];
@@ -44,14 +38,32 @@ class ControllerBack{
 		} else {
 			echo 'Vous ne pouvez pas mettre ce type de fichier';
 		}
-
-
 		$postManager = new PostManager();
 		$varCreateRubric = $postManager->modelCreateRubric($fileDestination,$titleRubic);
-		// require('App/view/rubrics/rubrics/listRubric.php?uploadsuccess');
+		 
 		header('location:index?action=listRubric');
 	}
 
+	function goUpdateRubric()
+	{
+		echo$_GET['id'];
+		$postManager = new PostManager();
+		$varCheckRubric = $postManager->modelCheckRubric($_GET['id']);
+		 require('App/view/rubrics/updateRubric.php');
+			
+	
+	}
+	function goHandlingUpdateRubric()
+	{
+		echo$_GET['id'];
+		echo$_POST['nameRubric'];
+		echo$_FILES['file']['tmp_name'];
 
+		$postManager = new PostManager();
+	
+		
+			$varUpdateRubric = $postManager->modelUpdateRubric($_GET['id'], $_POST['nameRubric'], $_FILES['file']['tmp_name']);
+		// header('location:index?action=goUpdateRubric');
+	}
 
 }

@@ -4,19 +4,22 @@
 
 <div class="main-content">
 	<div class="backcontainerlist">
-	<form action="index.php?action=createRubric" method="POST" enctype="multipart/form-data">
-		<input type="text" name="nameRubric" id="nameRubric" placeholder="Tire de la rubrique"><br>
-		<input type="file" name="file" id="file">
-		<button type="submit" name="submit" >UPLOAD</button>
+	<div class="container_form_rubric">
+	<form class="container_form_rubric" action="index.php?action=createRubric" method="POST" enctype="multipart/form-data">
+	<label for="nameRubric" class="labelrubric">Titre de la rubrique :</label>
+		<input type="text" name="nameRubric" id="nameRubric">
+		<div><input type="file" name="file" id="file"></div>
+		<div><button type="submit" name="submit" >UPLOAD</button></div>
 	</form>
+	<label>
 		<div class="containerList">
 			<h1>Liste des Rubriques</h1>
 			<ul>
 				<?php
 				$i = 1;
 				while ($data = $varListRubric->fetch()) : ?>
-					<li class=""><span class="number"><?= $i++; ?></span><span class="list"><?= $data['title_rubric'] ?></span>
-						<span class=" buttonList"><a href="index.php?action=goDeleteComment&id=">Modifier</a></span> <span class=" buttonList"><a href="index.php?action=goDeleteComment&id=">Supprimer</a></span></li>
+					<li class=""><span class="number"><?= $i++; ?></span><span class="list"><?= $data['title_rubric']; ?></span>
+						<span class=" buttonList"><a href="index.php?action=goUpdateRubric&id=<?=$data['id_rubric']; ?>">Modifier</a></span> <span class=" buttonList"><a href="index.php?action=goDeleteRubric=<?=$data['id_rubric']; ?>">Supprimer</a></span></li>
 				<?php endwhile; ?>
 			</ul>
 		</div>
