@@ -25,34 +25,41 @@ class PostManager extends Manager
 		
 	public function modelCheckRubric($id)
 	{	
-		
+		echo$id;
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT * FROM rubrics WHERE id= ?');
+		$req = $db->prepare('SELECT * FROM rubrics WHERE id_rubric= ?');
 		$req->execute(array($id));
-		print_r($req->fetch());
+		// print_r($req);
+	// TODO	var_dump($req->fetch());
+		// print_r($req->fetch());
 		$count = $req->rowCount();
 		if ($count > 0) {
 		
 			$check = $req->fetch();
 			return $check;
 		} else {
-			echo'yuuu';
+			
 			return  false;
 		}
 	}
 	function  modelUpdateRubric($id,  $title, $path)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('UPDATE rubrics SET image= :image, title_rubric= :title_rubric  WHERE id= :id');
+		$req = $db->prepare('UPDATE rubrics SET image= :image, title_rubric= :title_rubric  WHERE id_rubric= :id_rubric');
 		$req->execute(array(
 			'title_rubric' => $title,
 			'image' => $path,
-			'id' => $id
+			'id_rubric' => $id
 		));
 		return true;
 	}
-	
-	
+	function modelDeleteRubric($id)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('DELETE FROM rubrics WHERE id_rubric = ?');
+		$req->execute(array($id));
+		return $req;
+	}
 	public function getChapters()
 	{
 		$db = $this->dbConnect();

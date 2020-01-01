@@ -32,8 +32,9 @@ try {
 			$monFront->goListRubric();
 		} elseif ($_GET['action'] == 'createRubric') {
 			if (!empty($_POST['nameRubric']) and !empty($_FILES['file'])) {
+				// print_r($_FILES['file']);
 				$monBack = new controllerBack;
-				$monBack->goCreateRubric();
+				  $monBack->goCreateRubric();
 			} else {
 				throw new Exception('Veuillez vous ');
 			}
@@ -44,11 +45,25 @@ try {
 				 $monBack = new controllerBack;
 				 $monBack->goUpdateRubric();
 			} else {
-				throw new Exception('Veuillez vous aza ');
+				throw new Exception('Veuillez vous aza1 ');
+			}
+		}elseif ($_GET['action'] == 'goDeleteRubric') {
+			
+			if  (isset($_GET['id']) && $_GET['id'] > 0) {
+				
+				 $monBack = new controllerBack;
+				  $monBack->goDeleteRubric();
+			} else {
+				throw new Exception('Veuillez vous aza1 ');
 			}
 		} elseif ($_GET['action'] == 'goHandlingUpdateRubric') {
+			if  (isset($_GET['id']) && $_GET['id'] > 0) {
 			$monBack = new controllerBack;
-			$monBack->goHandlingUpdateRubric();
+			// print_r($_FILES['file']);
+			 $monBack->goHandlingUpdateRubric();
+		} else {
+			throw new Exception('Veuillez vous aza2 ');
+		}
 		}  elseif ($_GET['action'] == 'createSujet') {
 			$monFront = new controllerFront;
 			$monFront->goCreateSujet();
