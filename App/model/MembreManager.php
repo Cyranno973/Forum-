@@ -10,7 +10,7 @@ class MembreManager extends Manager
 		return $req;
 	}
 
-	function checkPseudo($pseudo)
+	public function checkPseudo($pseudo)
 	{
 		$db = $this->dbConnect();
 		$check = $db->prepare('SELECT pseudo FROM users WHERE pseudo= ?');
@@ -22,7 +22,7 @@ class MembreManager extends Manager
 			return  false;
 		}
 	}
-	function ajoutMembre($pseudo, $mdp, $mail)
+	public function ajoutMembre($pseudo, $mdp, $mail)
 	{
 
 		$db = $this->dbConnect();
@@ -36,7 +36,7 @@ class MembreManager extends Manager
 		));
 		print_r($req);
 	}
-	function getPseudo($id_auteur)
+	public function getPseudo($id_auteur)
 	{
 		$db = $this->dbConnect();
 		$check = $db->prepare('SELECT pseudo FROM membre WHERE id= ?');
@@ -48,7 +48,7 @@ class MembreManager extends Manager
 			return  false;
 		}
 	}
-	function checkMembre($pseudo)
+	public function checkMembre($pseudo)
 	{
 		$db = $this->dbConnect();
 		$check = $db->prepare('SELECT id, pseudo, droitUser, pass FROM users WHERE pseudo = ?');
@@ -56,4 +56,11 @@ class MembreManager extends Manager
 		$infoUser = $check->fetch();
 		return $infoUser;
 	}
+	public function modelDeleteUser($id)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM users WHERE id = ?');
+        $req->execute(array($id));
+        return $req;
+    }
 }

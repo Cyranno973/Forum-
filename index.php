@@ -27,30 +27,29 @@ try {
 			} else {
 				throw new Exception('id  perdu introuvabble');
 			}
-		}elseif ($_GET['action'] == 'goFilterSujet') {
+		} elseif ($_GET['action'] == 'goFilterSujet') {
 			$monBack = new controllerBack;
 			$monBack->gofilterSujet();
-		}elseif ($_GET['action'] == 'goSelectSujet') {
+		} elseif ($_GET['action'] == 'goSelectSujet') {
 			$monBack = new controllerBack;
 			$monBack->goSelectSujet();
-		}elseif ($_GET['action'] == 'listSujet') {
+		} elseif ($_GET['action'] == 'listSujet') {
 			$monBack = new controllerBack;
 			$monBack->goListSujet();
-		}elseif ($_GET['action'] == 'goUpdateSujet') {
-			
+		} elseif ($_GET['action'] == 'goUpdateSujet') {
+
 			$monBack = new controllerBack;
-			 $monBack->goUpdateSujet();
-		}  elseif ($_GET['action'] == 'listRubric') {
+			$monBack->goUpdateSujet();
+		} elseif ($_GET['action'] == 'listRubric') {
 			$monFront = new controllerFront;
 			$monFront->goListRubric();
 		} elseif ($_GET['action'] == 'createSujet') {
-			 if ((!empty($_SESSION['membre']))) {
+			if ((!empty($_SESSION['membre']))) {
 				if (!empty($_POST['nameSujet']) and !empty($_POST['sujetContent']) and !empty($_POST['fname'])) {
 					$_POST['nameSujet'] = htmlspecialchars($_POST['nameSujet']);
 					// echo$_POST['fname'];
 					$monBack = new controllerBack;
-			$monBack->goCreateSujet();
-					
+					$monBack->goCreateSujet();
 				} else {
 
 					throw new Exception('Votre document ou titre est vide');
@@ -58,70 +57,69 @@ try {
 			} else {
 				throw new Exception('Vous devez être membre  pour y acceder');
 			}
-		}elseif ($_GET['action'] == 'goHandlingUpdateSujet') {
+		} elseif ($_GET['action'] == 'goHandlingUpdateSujet') {
 			if ((!empty($_SESSION['membre']))) {
-			   if (!empty($_POST['nameSujet']) and !empty($_POST['sujetContent']) and !empty($_POST['fname'])) {
-				   $_POST['nameSujet'] = htmlspecialchars($_POST['nameSujet']);
-				//    echo $_GET['id'];
-				//    echo $_POST['nameSujet'];
-				//    echo  $_SESSION['idUser'];
-				//    echo $_POST['sujetContent'];
-				//    echo$_POST['fname'];
-		
-		
-				   $monBack = new controllerBack;
-		   $monBack->goHandlingUpdateSujet();
-				   
-			   } else {
+				if (!empty($_POST['nameSujet']) and !empty($_POST['sujetContent']) and !empty($_POST['fname'])) {
+					$_POST['nameSujet'] = htmlspecialchars($_POST['nameSujet']);
+					//    echo $_GET['id'];
+					//    echo $_POST['nameSujet'];
+					//    echo  $_SESSION['idUser'];
+					//    echo $_POST['sujetContent'];
+					//    echo$_POST['fname'];
 
-				   throw new Exception('Votre document ou titre est vide');
-			   }
-		   } else {
-			   throw new Exception('Vous devez être membre  pour y acceder');
-		   }
-	   } elseif ($_GET['action'] == 'createRubric') {
+
+					$monBack = new controllerBack;
+					$monBack->goHandlingUpdateSujet();
+				} else {
+
+					throw new Exception('Votre document ou titre est vide');
+				}
+			} else {
+				throw new Exception('Vous devez être membre  pour y acceder');
+			}
+		} elseif ($_GET['action'] == 'createRubric') {
 			if (!empty($_POST['nameRubric']) and !empty($_FILES['file'])) {
 				// print_r($_FILES['file']);
 				$monBack = new controllerBack;
-				  $monBack->goCreateRubric();
+				$monBack->goCreateRubric();
 			} else {
 				throw new Exception('Veuillez vous ');
 			}
 		} elseif ($_GET['action'] == 'goUpdateRubric') {
-			
-			if  (isset($_GET['id']) && $_GET['id'] > 0) {
-				
-				 $monBack = new controllerBack;
-				 $monBack->goUpdateRubric();
+
+			if (isset($_GET['id']) && $_GET['id'] > 0) {
+
+				$monBack = new controllerBack;
+				$monBack->goUpdateRubric();
 			} else {
 				throw new Exception('Veuillez vous aza1 ');
 			}
-		}elseif ($_GET['action'] == 'goDeleteRubric') {
-			
-			if  (isset($_GET['id']) && $_GET['id'] > 0) {
-				
-				 $monBack = new controllerBack;
-				  $monBack->goDeleteRubric();
+		} elseif ($_GET['action'] == 'goDeleteRubric') {
+
+			if (isset($_GET['id']) && $_GET['id'] > 0) {
+
+				$monBack = new controllerBack;
+				$monBack->goDeleteRubric();
 			} else {
 				throw new Exception('Veuillez vous aza1 ');
 			}
-		}elseif ($_GET['action'] == 'goDeleteSujet') {
-			
-			if  (isset($_GET['id']) && $_GET['id'] > 0) {
-				
-				 $monBack = new controllerBack;
-				  $monBack->goDeleteSujet();
+		} elseif ($_GET['action'] == 'goDeleteSujet') {
+
+			if (isset($_GET['id']) && $_GET['id'] > 0) {
+
+				$monBack = new controllerBack;
+				$monBack->goDeleteSujet();
 			} else {
 				throw new Exception('Veuillez vous aza5 ');
 			}
 		} elseif ($_GET['action'] == 'goHandlingUpdateRubric') {
-			if  (isset($_GET['id']) && $_GET['id'] > 0) {
-			$monBack = new controllerBack;
-		
-			 $monBack->goHandlingUpdateRubric();
-		} else {
-			throw new Exception('Veuillez vous aza2 ');
-		}
+			if (isset($_GET['id']) && $_GET['id'] > 0) {
+				$monBack = new controllerBack;
+
+				$monBack->goHandlingUpdateRubric();
+			} else {
+				throw new Exception('Veuillez vous aza2 ');
+			}
 		} elseif ($_GET['action'] == 'admin') {
 			$monFront = new controllerFront;
 			$monFront->goAdmin();
@@ -161,10 +159,10 @@ try {
 			}
 		} elseif ($_GET['action'] == 'ajoutComment') {
 			if (!empty($_POST['message'])) {
-			
+
 				$_POST['message'] = htmlspecialchars($_POST['message']);
 				if (!empty($_SESSION['membre'])) {
-					
+
 					$monFront = new controllerFront;
 					$monFront->addComment();
 				} else {
@@ -254,39 +252,58 @@ try {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
 				$monFront = new controllerFront;
 				$monFront->goDeleteComment();
-			} else {
-				throw new Exception('Vous devez être administrateur  pour y acceder');
-			}
-		} elseif ($_GET['action'] == 'goDeleteChapter') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				$monFront = new controllerFront;
-				$monFront->goDeleteChapter();
-			} else {
-				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'goDeleteComment') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
-				$monFront = new controllerFront;
-				$monFront->goDeleteComment();
-			} else {
-				throw new Exception('Vous devez être administrateur  pour y acceder');
-			}
-		} elseif ($_GET['action'] == 'goDeleteAlert') {
-			if ((!empty($_SESSION['membre'])) and  ($_SESSION['powerUser'] >= 1)) {
-
-				if (!empty($_GET['id'])) {
+				if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
 					$monFront = new controllerFront;
-					$monFront->goDeleteAlert();
+					$monFront->goDeleteComment();
 				} else {
 					throw new Exception('Vous devez être administrateur  pour y acceder');
 				}
+		} elseif ($_GET['action'] == 'goDeleteChapter') {
+				if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
+					$monFront = new controllerFront;
+					$monFront->goDeleteChapter();
+				} else {
+					throw new Exception('Vous devez être administrateur  pour y acceder');
+				}
+		} elseif ($_GET['action'] == 'goDeleteComment') {
+				if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
+					$monFront = new controllerFront;
+					$monFront->goDeleteComment();
+				} else {
+					throw new Exception('Vous devez être administrateur  pour y acceder');
+				}
+		} elseif ($_GET['action'] == 'goAddOperator') {
+		} elseif ($_GET['action'] == 'goDeleteUser') {
+				echo 'yoo';
+				if (!empty($_SESSION['membre']) and $_SESSION['powerUser'] >= 1) {
+
+					$monBack = new controllerBack;
+					 $monBack->goDeleteUser();
+				} else {
+					throw new Exception('Vous devez être administrateur  pour y acceder');
+				}
+			} elseif ($_GET['action'] == 'goAddOperator') {
+				goAddOperator();
+				// TODO AJOUTER MEMMBRE
+			} elseif ($_GET['action'] == 'goDeleteAlert') {
+				if ((!empty($_SESSION['membre'])) and  ($_SESSION['powerUser'] >= 1)) {
+
+					if (!empty($_GET['id'])) {
+						$monFront = new controllerFront;
+						$monFront->goDeleteAlert();
+					} else {
+						throw new Exception('Vous devez être administrateur  pour y acceder');
+					}
+				}
 			}
+		} else {
+			$monFront = new controllerFront;
+			$monFront->goHome();
 		}
-	} else {
-		$monFront = new controllerFront;
-		$monFront->goHome();
 	}
-} catch (Exception $e) {
+ catch (Exception $e) {
 	$messageError = $e->getMessage();
 	require('App/view/error.php');
 }

@@ -157,7 +157,6 @@ class ControllerBack{
 	}
 	function goDeleteRubric()
 {
-    
     $postManager = new PostManager();
     $varDeleteRubric = $postManager->modelDeleteRubric($_GET['id']);
     header('location:index?action=listRubric');
@@ -166,8 +165,15 @@ function goDeleteSujet()
 {
     
     $postManager = new PostManager();
-    $varDeleteRubric = $postManager->modelDeleteSujet($_GET['id']);
+    $varDeleteSujet = $postManager->modelDeleteSujet($_GET['id']);
     header('location:index?action=listSujet');
+}
+function goDeleteUser()
+{
+    
+    $membreManager = new MembreManager();
+    $varDeleteMembre = $membreManager->modelDeleteUser($_GET['id']);
+    header('location:index?action=listMembres');
 }
 
 }

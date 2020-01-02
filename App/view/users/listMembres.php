@@ -9,6 +9,7 @@
 					<th>Pseudo</th>
 					<th>mail</th>
 					<th>Droit</th>
+					<th>Action</th>
 					<!-- <th>Action</th> -->
 				</tr>
 				<?php
@@ -20,6 +21,8 @@
 						<td><?= $data['pseudo'] ?></td>
 						<td><?= $data['mail'] ?></td>
 						<td><?= $data['droitUser'] ?></td>
+						<td>	<span class=" buttonList"><a href="index.php?action=goUpdateRubric&id=<?=$data['id']; ?>">Modifier</a></span>
+						<span class=" buttonList"><a href="index.php?action=goDeleteUser&id=<?=$data['id']; ?>">Supprimer</a></span></td>
 						
 					</tr>
 				<?php
