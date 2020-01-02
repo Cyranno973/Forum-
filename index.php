@@ -27,6 +27,12 @@ try {
 			} else {
 				throw new Exception('id  perdu introuvabble');
 			}
+		}elseif ($_GET['action'] == 'goFilterSujet') {
+			$monBack = new controllerBack;
+			$monBack->gofilterSujet();
+		}elseif ($_GET['action'] == 'goSelectSujet') {
+			$monBack = new controllerBack;
+			$monBack->goSelectSujet();
 		}elseif ($_GET['action'] == 'listSujet') {
 			$monBack = new controllerBack;
 			$monBack->goListSujet();
@@ -155,8 +161,10 @@ try {
 			}
 		} elseif ($_GET['action'] == 'ajoutComment') {
 			if (!empty($_POST['message'])) {
+			
 				$_POST['message'] = htmlspecialchars($_POST['message']);
 				if (!empty($_SESSION['membre'])) {
+					
 					$monFront = new controllerFront;
 					$monFront->addComment();
 				} else {
@@ -222,28 +230,28 @@ try {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'listMembres') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
+			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
 				$monFront = new controllerFront;
 				$monFront->golistMembres();
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'listComments') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
+			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
 				$monFront = new controllerFront;
 				$monFront->golistComments();
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'listAlerts') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
+			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
 				$monFront = new controllerFront;
 				$monFront->golistAlerts();
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'goDeleteComment') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
+			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
 				$monFront = new controllerFront;
 				$monFront->goDeleteComment();
 			} else {
@@ -257,14 +265,14 @@ try {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'goDeleteComment') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
+			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
 				$monFront = new controllerFront;
 				$monFront->goDeleteComment();
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'goDeleteAlert') {
-			if ((!empty($_SESSION['membre'])) and  ($_SESSION['powerUser'] == 1)) {
+			if ((!empty($_SESSION['membre'])) and  ($_SESSION['powerUser'] >= 1)) {
 
 				if (!empty($_GET['id'])) {
 					$monFront = new controllerFront;

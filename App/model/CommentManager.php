@@ -6,18 +6,20 @@ class CommentManager extends Manager
     public function modelListComments()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT m.pseudo, c.comment, c.id, ch.title FROM  membre m, comments c, chapter ch  Where m.id = c.id_auteur AND ch.id = c.id_chapitre ');
+        $req = $db->query('SELECT u.pseudo, c.comment, c.id, s.title_sujet FROM  users u, comments c, sujets s Where u.id = c.id_auteur AND s.id_sujet = c.id_sujet ');
         return $req;
     }
-    function ajoutcomment($id_auteur, $id_chapitre, $comment)
+
+
+    function ajoutcomment($id_auteur, $id_sujet, $comment)
     {
         $db = $this->dbConnect();
 
-        $req = $db->prepare('INSERT INTO comments(id_auteur, id_chapitre, comment) VALUES(:id_auteur, :id_chapitre, :comment)');
+        $req = $db->prepare('INSERT INTO comments(id_auteur, id_sujet, comment) VALUES(:id_auteur, :id_sujet, :comment)');
 
         $req->execute(array(
             'id_auteur' => $id_auteur,
-            'id_chapitre' => $id_chapitre,
+            'id_sujet' => $id_sujet,
             'comment' => $comment
         ));
     }

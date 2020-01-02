@@ -6,7 +6,7 @@ class MembreManager extends Manager
 	public function modelListMembres()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT * FROM membre ORDER BY id');
+		$req = $db->query('SELECT * FROM users ORDER BY id');
 		return $req;
 	}
 

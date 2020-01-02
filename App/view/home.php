@@ -14,7 +14,7 @@
 			<div class="widget">
 			<a href="">
 				<div> 
-					<a class="title-rubric" href=""><?= $data['title_rubric']; ?></a>
+					<a class="title-rubric" href="index.php?action=goFilterSujet&id=<?=$data['id_rubric']; ?>"><?= $data['title_rubric']; ?></a>
 				 </div>
 				 <div class="overlayImg" > <!--TODO image cliquante -->
 					<img src="<?=$data['image']; ?>" alt="">

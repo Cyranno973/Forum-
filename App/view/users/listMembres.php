@@ -1,9 +1,7 @@
 <?php $title = "Roman Jean Forteroche"; ?>
 <?php ob_start(); ?>
 
-<div class="container1">
-	<div class="adminContainer">
-		<!-- <center> <a href="index.php?action=addChapters">Ajouter un Membre</a></center> -->
+<div class="main-content">
 		<div class="table-box">
 			<table cellpadding="10">
 				<tr>
@@ -33,4 +31,4 @@
 </div>
 <?php $varListMembres->closeCursor(); ?>
 <?php $content = ob_get_clean(); ?>
-<?php require('App/view/template.php'); ?>
+<?php require('App/view/templates/templateHome.php'); ?>

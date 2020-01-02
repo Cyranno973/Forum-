@@ -145,19 +145,37 @@ class PostManager extends Manager
 	// 	$req = $db->query('SELECT id, title, content FROM chapter ORDER BY id DESC LIMIT 0, 5 ');
 	// 	return $req;
 	// }
-
-
-	public function getcomments($chapterId)
-	{
-		$db = $this->dbConnect();
-		$comments = $db->prepare('SELECT c.id, pseudo, comment  FROM comments c, membre m  Where m.id = c.id_auteur AND id_chapitre= ?');
-		$comments->execute(array($chapterId));
-		return $comments;
-	}
 	public function modelListChapters()
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT * FROM chapter ORDER BY id');
+		return $req;
+	}
+
+	public function modelGetComments($id)
+	{
+		$db = $this->dbConnect();
+		$comments = $db->prepare('SELECT c.id, comment, pseudo FROM comments c, users u  Where u.id = c.id_auteur AND id_sujet= ?');
+		$comments->execute(array($id));
+	
+		  $comments = $comments->fetchAll();
+		// print_r($comments);
+		return $comments;
+	}
+	public function modelFilterSujet($id)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT * FROM sujets WHERE id_rubrique= ?');
+		$req->execute(array($id));
+
+		return $req;
+	}
+	public function modelSelectSujet($id)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT * FROM sujets WHERE id_sujet= ?');
+		$req->execute(array($id));
+		$req = $req->fetch();
 		return $req;
 	}
 	public function  modelHandlingInscriptionChapter($titreChapitre, $chapterContent)

@@ -20,7 +20,7 @@ function golistMembres()
 {
     $membreManager = new MembreManager();
     $varListMembres = $membreManager->modelListMembres();
-    require('App/view/ListMembres.php');
+    require('App/view/users/ListMembres.php');
 }
 function inscription()
 {
@@ -133,13 +133,20 @@ function golistComments()
 {
     $commentManager = new CommentManager();
     $allComments = $commentManager->modelListComments();
-    require('App/view/ListComments.php');
+    require('App/view/comments/listComments.php');
 }
+// function goCommentSujet()
+// {
+//     $postManager = new PostManager();
+//     $commentManager = new CommentManager();
+//     $varCommentSujet = $commentManager->$modelGetComments($_GET['id']);
+//     require('App/view/ListComments.php');
+// }
 function addcomment()
-{
+{ 
     $commentManager = new CommentManager();
     $insertComment = $commentManager->ajoutComment($_SESSION['idUser'], $_GET['id'], $_POST['message']);
-    header('location:index.php?action=showChapter&id=' . $_GET['id']);
+    header('location:index.php?action=goSelectSujet&id='. $_GET['id']);
 }
 function goDeleteComment()
 {
@@ -159,14 +166,14 @@ function golistAlerts()
 {
     $alertManager = new AlertManager();
     $allAlerts = $alertManager->modelListAlerts();
-    require('App/view/ListAlerts.php');
+    require('App/view/alerts/listAlerts.php');
 }
 function goDeleteAlert()
 {
     $alertManager = new AlertManager();
     $alert = 0;
     $varDeleteAlert = $alertManager->modelDeleteAlert($_GET['id'], $alert);
-    print_r($varDeleteAlert);
+    // print_r($varDeleteAlert);
     header('location:index.php?action=listAlerts');
 }
 

@@ -36,7 +36,7 @@
 				<?php
 				$i = 1;
 				while ($data = $varListSujet->fetch()) : ?>
-					<li class=""><span class="number"><?= $i++; ?></span><span class="list"><?= $data['title_sujet']; ?></span>
+					<li class=""><a href="index.php?action=goSelectSujet&id=<?=$data['id_sujet']; ?>"><span class="number"><?= $i++; ?></span><span class="list"><?= $data['title_sujet']; ?></a></span>
 						<span class=" buttonList"><a href="index.php?action=goUpdateSujet&id=<?=$data['id_sujet']; ?>">Modifier</a></span>
 						<span class=" buttonList"><a href="index.php?action=goDeleteSujet&id=<?=$data['id_sujet']; ?>">Supprimer</a></span>
 					</li>

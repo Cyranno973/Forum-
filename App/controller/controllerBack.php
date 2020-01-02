@@ -49,6 +49,25 @@ class ControllerBack{
 		
 		  require('App/view/sujets/listSujet.php');
 	}
+	function goFilterSujet()
+	{
+
+		$postManager = new PostManager();
+		$varFilterSujet = $postManager->modelFilterSujet($_GET['id']);
+// print_r($varFilterSujet);
+		  require('App/view/sujets/filterSujet.php');
+	}
+	function goSelectSujet()
+	{
+		// echo$_GET['id'];
+		$postManager = new PostManager();
+		$varSelectSujet = $postManager->modelSelectSujet($_GET['id']);
+		// print_r($varSelectSujet);
+		$varCommentSujet = $postManager->modelGetComments($_GET['id']);
+    //  print_r($varCommentSujet);
+		    require('App/view/sujets/selectSujet.php');
+	}
+
 
 	function goCreateRubric()
 	{
