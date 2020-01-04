@@ -31,8 +31,15 @@ try {
 			$monBack = new controllerBack;
 			$monBack->gofilterSujet();
 		} elseif ($_GET['action'] == 'goSelectSujet') {
-			$monBack = new controllerBack;
-			$monBack->goSelectSujet();
+			if(isset($_GET['page']) && !empty($_GET['page']) && ctype_digit($_GET['page']) == 1){
+				
+				$monBack = new controllerBack;
+				$monBack->goSelectSujet();
+			}
+			else{
+				$pageCourante = 1;
+			}
+			
 		} elseif ($_GET['action'] == 'listSujet') {
 			$monBack = new controllerBack;
 			$monBack->goListSujet();
@@ -183,14 +190,7 @@ try {
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
-		} elseif ($_GET['action'] == 'addChapters') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				$monFront = new controllerFront;
-				$monFront->goAddChapters();
-			} else {
-				throw new Exception('Vous devez être administrateur  pour y acceder');
-			}
-		} elseif ($_GET['action'] == 'handlingInscriptionChapter') {
+		}  elseif ($_GET['action'] == 'handlingInscriptionChapter') {
 			if ((!empty($_SESSION['membre']) and  ($_SESSION['powerUser'] == 1))) {
 				if (!empty($_POST['titleChapter']) and !empty($_POST['chapterContent'])) {
 					$_POST['titleChapter'] = htmlspecialchars($_POST['titleChapter']);
@@ -205,7 +205,10 @@ try {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'addAlert') {
-			if ((!empty($_GET['idcomment'])) and (!empty($_SESSION['idUser']))) {
+			
+			if ((!empty($_GET['idcomment'])) and (!empty($_SESSION['idUser'])) and (!empty($_GET['id_sujet']))) {
+				
+				
 				$monFront = new controllerFront;
 				$monFront->goAddAlert();
 			}
@@ -252,58 +255,72 @@ try {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
 				$monFront = new controllerFront;
 				$monFront->goDeleteComment();
+			} else {
+				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
-		} elseif ($_GET['action'] == 'goDeleteComment') {
-				if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
-					$monFront = new controllerFront;
-					$monFront->goDeleteComment();
-				} else {
-					throw new Exception('Vous devez être administrateur  pour y acceder');
-				}
-		} elseif ($_GET['action'] == 'goDeleteChapter') {
-				if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-					$monFront = new controllerFront;
-					$monFront->goDeleteChapter();
-				} else {
-					throw new Exception('Vous devez être administrateur  pour y acceder');
-				}
-		} elseif ($_GET['action'] == 'goDeleteComment') {
-				if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
-					$monFront = new controllerFront;
-					$monFront->goDeleteComment();
-				} else {
-					throw new Exception('Vous devez être administrateur  pour y acceder');
-				}
-		} elseif ($_GET['action'] == 'goAddOperator') {
 		} elseif ($_GET['action'] == 'goDeleteUser') {
-				echo 'yoo';
-				if (!empty($_SESSION['membre']) and $_SESSION['powerUser'] >= 1) {
+			
+			if (!empty($_SESSION['membre']) and $_SESSION['powerUser'] >= 1) {
 
-					$monBack = new controllerBack;
-					 $monBack->goDeleteUser();
+				$monBack = new controllerBack;
+				$monBack->goDeleteUser();
+			} else {
+				throw new Exception('Vous devez être administrateur  pour y acceder');
+			}
+		} elseif ($_GET['action'] == 'goAddOperator') {
+			
+			$monBack = new controllerBack;
+				 $monBack->goAddOperator();
+			
+			// TODO AJOUTER MEMMBRE
+		}elseif ($_GET['action'] == 'goUpdateOperator') {
+			if (isset($_GET['id']) and (!empty($_GET['id']))) {
+				$monBack = new controllerBack;
+				$monBack->goUpdateOperator();
+				
+			}
+		}  elseif ($_GET['action'] == 'handlingInscriptionOperator') {
+
+			if (!empty($_POST['pseudoInscription']) and !empty($_POST['passwordInscription'])  and !empty($_POST['emailInscription']) and !empty($_POST['power'])) {
+				$_POST['pseudoInscription'] = strip_tags($_POST['pseudoInscription']);
+				$_POST['passwordInscription'] = strip_tags($_POST['passwordInscription']);
+				$_POST['emailInscription'] = strip_tags($_POST['emailInscription']);
+				$_POST['power'] = strip_tags($_POST['power']);
+				$monBack = new controllerBack;
+				$monBack->handlingInscriptionOperator();
+				
+			} else {
+				echo 'echec handlingInscriptionOperator';
+			}
+		} elseif ($_GET['action'] == 'handlingUpdateOperator') {
+
+			if (!empty($_GET['id']) and !empty($_POST['pseudoConnect']) and !empty($_POST['passwordConnect'])  and !empty($_POST['emailConnect']) and !empty($_POST['power'])) {
+				$_POST['pseudoConnect'] = strip_tags($_POST['pseudoConnect']);
+				$_POST['passwordConnect'] = strip_tags($_POST['passwordConnect']);
+				$_POST['emailConnect'] = strip_tags($_POST['emailConnect']);
+				$_POST['power'] = strip_tags($_POST['power']);
+				$monBack = new controllerBack;
+				$monBack->handlingUpdateOperator();
+				
+			} else {
+				echo 'echec handlingUpdateOperator';
+			}
+		} elseif ($_GET['action'] == 'goDeleteAlert') {
+			if ((!empty($_SESSION['membre'])) and  ($_SESSION['powerUser'] >= 1)) {
+
+				if (!empty($_GET['id'])) {
+					$monFront = new controllerFront;
+					$monFront->goDeleteAlert();
 				} else {
 					throw new Exception('Vous devez être administrateur  pour y acceder');
 				}
-			} elseif ($_GET['action'] == 'goAddOperator') {
-				goAddOperator();
-				// TODO AJOUTER MEMMBRE
-			} elseif ($_GET['action'] == 'goDeleteAlert') {
-				if ((!empty($_SESSION['membre'])) and  ($_SESSION['powerUser'] >= 1)) {
-
-					if (!empty($_GET['id'])) {
-						$monFront = new controllerFront;
-						$monFront->goDeleteAlert();
-					} else {
-						throw new Exception('Vous devez être administrateur  pour y acceder');
-					}
-				}
 			}
-		} else {
-			$monFront = new controllerFront;
-			$monFront->goHome();
 		}
+	} else {
+		$monFront = new controllerFront;
+		$monFront->goHome();
 	}
- catch (Exception $e) {
+} catch (Exception $e) {
 	$messageError = $e->getMessage();
 	require('App/view/error.php');
 }

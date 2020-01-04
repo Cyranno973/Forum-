@@ -2,6 +2,7 @@
 <?php ob_start(); ?>
 
 <div class="main-content">
+<span class=" buttonList"><a href="index.php?action=goAddOperator">Ajouter un operateur</a></span>
 		<div class="table-box">
 			<table cellpadding="10">
 				<tr>
@@ -21,7 +22,7 @@
 						<td><?= $data['pseudo'] ?></td>
 						<td><?= $data['mail'] ?></td>
 						<td><?= $data['droitUser'] ?></td>
-						<td>	<span class=" buttonList"><a href="index.php?action=goUpdateRubric&id=<?=$data['id']; ?>">Modifier</a></span>
+						<td>	<span class=" buttonList"><a href="index.php?action=goUpdateOperator&id=<?=$data['id']; ?>">Modifier</a></span>
 						<span class=" buttonList"><a href="index.php?action=goDeleteUser&id=<?=$data['id']; ?>">Supprimer</a></span></td>
 						
 					</tr>

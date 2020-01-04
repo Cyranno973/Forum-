@@ -7,6 +7,84 @@ use \App\model\CommentManager;
 use \App\model\AlertManager;
 
 class ControllerBack{
+
+
+	function goAddOperator()
+	{
+		require('App/view/users/createOperator.php');
+	}
+	function handlingInscriptionOperator()
+	{
+		$membreManager = new MembreManager();
+    
+		$varPseudoCheck = $membreManager->modelPseudoCheckOperator($_POST['pseudoInscription']);
+		if ($varPseudoCheck == false) {
+			$varModelHandlingInscriptionOperator = $membreManager->modelHandlingInscriptionOperator(
+				$pseudo = $_POST['pseudoInscription'],
+				$password = $_POST['passwordInscription'],
+				$email = $_POST['emailInscription'],
+				$power = $_POST['power']
+			);
+			if ($varModelHandlingInscriptionOperator) {
+					$info = 'utilsateur ajouter avec succes';
+					echo$info;
+				 require('App/view/users/createOperator.php');
+			}
+		} else {
+			$info = 'utilsateur déja existant.';
+	echo$info;
+			// require('App/view/users/createOperator.php');
+		}
+	}
+	function goUpdateOperator()
+	{
+		$membreManager = new MembreManager();
+	
+		$varModelGetInfoOperator = $membreManager->modelGetInfoOperator($_GET['id']);
+		//$varModelUpdateOperator = modelUpdateOperator();
+		if ($varModelGetInfoOperator) {
+	
+			require('App/view/users/updateMembre.php');
+		}
+	}
+	function handlingUpdateOperator()
+	{
+		$membreManager = new MembreManager();
+		$varPseudoCheck = $membreManager->modelinfoUpdateOperator($_GET['id']);
+		$varPseudo = false;
+	
+		foreach ($varPseudoCheck as $data) {
+			if ($data['pseudo'] == $_POST['pseudoConnect']) {
+				$varPseudo = true;
+				echo 'pseudo existant';
+			}
+		}
+		$varPassCheck = $membreManager->modelPassUpdateOperator($_GET['id']);
+		$varPass = false;
+		foreach ($varPassCheck as $data) {
+	
+			if ($_POST['passwordConnect'] != $data['pass']) {
+				$_POST['passwordConnect'] = password_hash($_POST['passwordConnect'], PASSWORD_DEFAULT);
+				echo 'password modifier';
+			}
+		}
+	
+		if ($varPseudo == false) {
+			$varModelHandlingUpdateOperator = $membreManager->modelHandlingUpdateOperator($id = $_GET['id'], $pseudo = $_POST['pseudoConnect'], $password = $_POST['passwordConnect'], $email = $_POST['emailConnect'], $power = $_POST['power']);
+			if ($varModelHandlingUpdateOperator) {
+				header('location:index.php?action=listMembres');
+			}
+		} else {
+			$info = 'utilsateur déja existant.';
+	
+			require('view/update/adUpdateOperator.php');
+		}
+	}
+	
+
+
+
+
 	function goCreateSujet()
 	{
 		$postManager = new PostManager();
@@ -36,7 +114,7 @@ class ControllerBack{
 		// echo$_POST['fname'];
 		$varHandlingUpdateSujet = $postManager->modelHandlingUpdateSujet( $_GET['id'], $_POST['nameSujet'], $_SESSION['idUser'], $_POST['sujetContent'],$_POST['fname']);
 		print_r($varHandlingUpdateSujet);
-		//header('location:index?action=listSujet');
+		header('location:index?action=listSujet');
 	}
 
 	function goListSujet()
@@ -59,13 +137,34 @@ class ControllerBack{
 	}
 	function goSelectSujet()
 	{
-		// echo$_GET['id'];
 		$postManager = new PostManager();
+		$pageCourante=$_GET['page'];
+		$nbrCommentsByPages = 5;
+		$firstCommentPage = ($pageCourante-1)*$nbrCommentsByPages;
+		echo$pageCourante;
+		
+		$varCommentSujet = $postManager->modelGetComments($_GET['id'],$firstCommentPage,$nbrCommentsByPages);
 		$varSelectSujet = $postManager->modelSelectSujet($_GET['id']);
+		$varNbrCommentsTotales = $postManager->modelNbrCommentsTotales($_GET['id']);
+		//  print_r($varNbrCommentsTotales);
+		
+		$nbPage = ceil($varNbrCommentsTotales / $nbrCommentsByPages);
+		if($_GET['page'] > $nbPage){
+		$current =$nbPage;
+		}
+		else{
+			$current = $_GET['page'];
+		}
+
+		
+		// $varAllcomments = $postManager->modelAllcomments($_GET['id'], $firstCommentPage, $nbrCommentsByPages);
+		//   print_r($varAllcomments);
+		//  echo $varAllcomments['comment'];
+		
 		// print_r($varSelectSujet);
-		$varCommentSujet = $postManager->modelGetComments($_GET['id']);
+	
     //  print_r($varCommentSujet);
-		    require('App/view/sujets/selectSujet.php');
+		        require('App/view/sujets/selectSujet.php');
 	}
 
 

@@ -1,6 +1,9 @@
+<?php $title = "Roman Jean Forteroche"; ?>
+<?php ob_start(); ?>
+
 <div class="login-box">
-		<h1>Insciption operateur</h1>
-		<form method="POST" action="index.php?admin=handlingInscriptionOperator">
+		<h1>Inscription operateur</h1>
+		<form method="POST" action="index.php?action=handlingInscriptionOperator">
 			<div class="textbox">
 				<i class="fas fa-user"></i>
 				<input type="text" name="pseudoInscription" id="pseudoInscription" placeholder="Entrez un nom" required>
@@ -17,6 +20,7 @@
 			<select name="power" id="power">
 				<option value="1">Moderateur</option>
 				<option value="2">Editeur</option>
+				<option value="3">Admin</option>
 			</select>
 			<input class="btnConnexion" type="submit" value="Ajouter" name="connexionSubmit">
 		</form>
@@ -26,3 +30,5 @@
 
 
 	</div>
+	<?php $content = ob_get_clean(); ?>
+<?php require('App/view/templates/template.php'); ?>

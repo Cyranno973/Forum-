@@ -62,5 +62,97 @@ class MembreManager extends Manager
         $req = $db->prepare('DELETE FROM users WHERE id = ?');
         $req->execute(array($id));
         return $req;
+	}
+	
+
+
+
+
+	function modelPseudoCheckOperator($pseudo)
+	{
+		$db = $this->dbConnect();
+		$check = $db->prepare('SELECT pseudo FROM users WHERE pseudo= ?');
+		$check->execute(array($pseudo));
+		$count = $check->rowCount();
+	
+		if ($count > 0) {
+	
+			return true;
+		} else {
+			return  false;
+		}
+	}
+	function modelinfoUpdateOperator($id)
+	{
+		$db = $this->dbConnect();
+		$check = $db->prepare('SELECT pseudo FROM users WHERE id <> ?');
+		$check->execute(array($id));
+		$count = $check->rowCount();
+	
+		if ($count > 0) {
+			return $check;
+		} else {
+			return  false;
+		}
+	}
+	public function modelGetInfoOperator($id)
+{
+    $db = $this->dbConnect();
+    $req = $db->prepare('SELECT * FROM users WHERE id= ?');
+    $req->execute(array($id));
+    $count = $req->rowCount();
+    $infoOperator = $req->fetch();
+    if ($count > 0) {
+        return $infoOperator;
+    } else {
+        return  false;
     }
+}
+	function modelPassUpdateOperator($id)
+	{
+		$db = $this->dbConnect();
+		$check = $db->prepare('SELECT pass FROM users WHERE id = ?');
+		$check->execute(array($id));
+		$count = $check->rowCount();
+	
+		if ($count > 0) {
+			return $check;
+		} else {
+			return  false;
+		}
+	}
+	
+	function  modelHandlingInscriptionOperator($pseudo, $mdp, $mail, $power)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('INSERT INTO users(pseudo, pass, mail, droitUser) VALUES(:pseudo, :pass, :mail, :droitUser)');
+		$req->execute(array(
+			'pseudo' => $pseudo,
+			'pass' => password_hash($mdp, PASSWORD_DEFAULT),
+			'mail' => $mail,
+			'droitUser' => $power,
+		));
+		return true;
+	}
+
+	function  modelHandlingUpdateOperator($id, $pseudo, $password, $email, $power)
+	{
+	
+		$db = $this->dbConnect();
+	
+		$req = $db->prepare('UPDATE users SET pseudo= :pseudo, pass= :pass, mail= :mail, droitUser= :droitUser WHERE id= :id');
+		$req->execute(array(
+			'pseudo' => $pseudo,
+			'pass' => $password,
+			'mail' => $email,
+			'droitUser' => $power,
+			'id' => $id
+		));
+	
+		return true;
+	}
+	
+
+
+
 }

@@ -158,9 +158,11 @@ function goDeleteComment()
 
 function goAddAlert()
 {
+    echo$_GET['id_sujet'];
     $alertManager = new AlertManager();
     $varAddAlert = $alertManager->modelAddAlert($_GET['idcomment'], $_SESSION['idUser']);
-    header('location: index.php');
+     header('location:index.php?action=goSelectSujet&id='.$_GET['id_sujet']);
+    //  header("location:index.php?action=goFilterSujet&id=".$_GET['id_sujet']);
 }
 function golistAlerts()
 {

@@ -152,15 +152,26 @@ class PostManager extends Manager
 		return $req;
 	}
 
-	public function modelGetComments($id)
+	public function modelGetComments($id,$depart,$nbrCommentsByPages)
 	{
 		$db = $this->dbConnect();
-		$comments = $db->prepare('SELECT c.id, comment, pseudo FROM comments c, users u  Where u.id = c.id_auteur AND id_sujet= ?');
+		$comments = $db->prepare('SELECT c.id, comment, pseudo FROM comments c, users u  Where u.id = c.id_auteur AND id_sujet= ? LIMIT '.$depart.','.$nbrCommentsByPages);
 		$comments->execute(array($id));
 	
-		  $comments = $comments->fetchAll();
+		//  $comments = $comments->fetch();
 		// print_r($comments);
 		return $comments;
+	}
+	public function modelAllcomments($id, $firstCommentPage, $nbrCommentsByPages)
+	{
+		//  echo$firstCommentPage;
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT * FROM comments WHERE id_sujet=:id ORDER BY id ASC LIMIT $firstCommentPage, $nbrCommentsByPages');
+		$req->execute(array(
+			'id' => $id
+		));
+	//  $req = $req->fetch();
+		return $req;
 	}
 	public function modelFilterSujet($id)
 	{
@@ -170,6 +181,19 @@ class PostManager extends Manager
 
 		return $req;
 	}
+	public function modelNbrCommentsTotales($id)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT *  FROM comments WHERE id_sujet= ?');
+		$req->execute(array($id));
+		$count = $req->rowCount();
+	
+		
+		
+		return $count;
+	}
+	
+	
 	public function modelSelectSujet($id)
 	{
 		$db = $this->dbConnect();
