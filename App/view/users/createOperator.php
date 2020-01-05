@@ -18,6 +18,7 @@
 			</div>
 			<p>Sélectionner le type de role à attribuer à l'utilisateur</p>
 			<select name="power" id="power">
+			<option value="0">Membre</option>
 				<option value="1">Moderateur</option>
 				<option value="2">Editeur</option>
 				<option value="3">Admin</option>

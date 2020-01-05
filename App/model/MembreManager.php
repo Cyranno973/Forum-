@@ -1,4 +1,5 @@
 <?php
+
 namespace App\model;
 
 class MembreManager extends Manager
@@ -9,7 +10,6 @@ class MembreManager extends Manager
 		$req = $db->query('SELECT * FROM users ORDER BY id');
 		return $req;
 	}
-
 	public function checkPseudo($pseudo)
 	{
 		$db = $this->dbConnect();
@@ -24,15 +24,12 @@ class MembreManager extends Manager
 	}
 	public function ajoutMembre($pseudo, $mdp, $mail)
 	{
-
 		$db = $this->dbConnect();
 		$req = $db->prepare('INSERT INTO users(pseudo, pass, mail) VALUES(:pseudo, :pass, :mail)');
-
 		$req->execute(array(
 			'pseudo' => $pseudo,
 			'pass' => password_hash($mdp, PASSWORD_DEFAULT),
 			'mail' => $mail
-
 		));
 		print_r($req);
 	}
@@ -57,26 +54,19 @@ class MembreManager extends Manager
 		return $infoUser;
 	}
 	public function modelDeleteUser($id)
-    {
-        $db = $this->dbConnect();
-        $req = $db->prepare('DELETE FROM users WHERE id = ?');
-        $req->execute(array($id));
-        return $req;
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('DELETE FROM users WHERE id = ?');
+		$req->execute(array($id));
+		return $req;
 	}
-	
-
-
-
-
 	function modelPseudoCheckOperator($pseudo)
 	{
 		$db = $this->dbConnect();
 		$check = $db->prepare('SELECT pseudo FROM users WHERE pseudo= ?');
 		$check->execute(array($pseudo));
 		$count = $check->rowCount();
-	
 		if ($count > 0) {
-	
 			return true;
 		} else {
 			return  false;
@@ -88,7 +78,6 @@ class MembreManager extends Manager
 		$check = $db->prepare('SELECT pseudo FROM users WHERE id <> ?');
 		$check->execute(array($id));
 		$count = $check->rowCount();
-	
 		if ($count > 0) {
 			return $check;
 		} else {
@@ -96,32 +85,30 @@ class MembreManager extends Manager
 		}
 	}
 	public function modelGetInfoOperator($id)
-{
-    $db = $this->dbConnect();
-    $req = $db->prepare('SELECT * FROM users WHERE id= ?');
-    $req->execute(array($id));
-    $count = $req->rowCount();
-    $infoOperator = $req->fetch();
-    if ($count > 0) {
-        return $infoOperator;
-    } else {
-        return  false;
-    }
-}
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT * FROM users WHERE id= ?');
+		$req->execute(array($id));
+		$count = $req->rowCount();
+		$infoOperator = $req->fetch();
+		if ($count > 0) {
+			return $infoOperator;
+		} else {
+			return  false;
+		}
+	}
 	function modelPassUpdateOperator($id)
 	{
 		$db = $this->dbConnect();
 		$check = $db->prepare('SELECT pass FROM users WHERE id = ?');
 		$check->execute(array($id));
 		$count = $check->rowCount();
-	
 		if ($count > 0) {
 			return $check;
 		} else {
 			return  false;
 		}
 	}
-	
 	function  modelHandlingInscriptionOperator($pseudo, $mdp, $mail, $power)
 	{
 		$db = $this->dbConnect();
@@ -134,12 +121,9 @@ class MembreManager extends Manager
 		));
 		return true;
 	}
-
 	function  modelHandlingUpdateOperator($id, $pseudo, $password, $email, $power)
 	{
-	
 		$db = $this->dbConnect();
-	
 		$req = $db->prepare('UPDATE users SET pseudo= :pseudo, pass= :pass, mail= :mail, droitUser= :droitUser WHERE id= :id');
 		$req->execute(array(
 			'pseudo' => $pseudo,
@@ -148,11 +132,6 @@ class MembreManager extends Manager
 			'droitUser' => $power,
 			'id' => $id
 		));
-	
 		return true;
 	}
-	
-
-
-
 }

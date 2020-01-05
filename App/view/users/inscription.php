@@ -7,27 +7,26 @@
 
 		<div class="login-box">
 			<h1>Inscription</h1>
-			<form method="POST" action="index.php?action=inscriptionTraitement">
+			<form method="POST" action="index.php?action=inscriptionTraitement" name="inscription">
 				<div class="textbox">
 					<i class="fas fa-user"></i>
-					<input type="text" name="pseudoInscription" id="pseudoInscription" placeholder="Entrez votre pseudo" required>
+					<input type="text" name="pseudoInscription" id="pseudoInscription" placeholder="Entrez votre pseudo" >
 				</div>
 				<div class="textbox">
 					<i class="fas fa-lock-open"></i>
-					<input type="password" name="passwordInscription" id="passwordInscription" placeholder="Votre mot de passe" required>
+					<input type="password" name="passwordInscription" id="passwordInscription" placeholder="Votre mot de passe" >
 				</div>
 				<div class="textbox">
 					<i class="fas fa-lock"></i>
-					<input type="password" name="passwordInscription2" id="passwordInscription2" placeholder="Confirmez le mot de passe" required>
+					<input type="password" name="passwordInscription2" id="passwordInscription2" placeholder="Confirmez le mot de passe" >
 				</div>
 				<div class="textbox">
 					<i class="fas fa-lock"></i>
-					<input type="email" name="emailInscription" id="emailInscription" placeholder="Mail" required>
+					<input type="email" name="emailInscription" id="emailInscription" placeholder="Mail" >
 				</div>
 				<input class="btnConnexion" type="submit" value="Je m'inscris" name="submitinscription">
-
 			</form>
-
+			<p id="erreur"></p>
 
 		</div>
 	</div>

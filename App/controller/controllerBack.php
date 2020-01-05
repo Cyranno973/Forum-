@@ -9,8 +9,6 @@ use \App\model\AlertManager;
 
 class ControllerBack
 {
-
-
 	function goAddOperator()
 	{
 		require('App/view/users/createOperator.php');
@@ -18,7 +16,6 @@ class ControllerBack
 	function handlingInscriptionOperator()
 	{
 		$membreManager = new MembreManager();
-
 		$varPseudoCheck = $membreManager->modelPseudoCheckOperator($_POST['pseudoInscription']);
 		if ($varPseudoCheck == false) {
 			$varModelHandlingInscriptionOperator = $membreManager->modelHandlingInscriptionOperator(
@@ -35,18 +32,15 @@ class ControllerBack
 		} else {
 			$info = 'utilsateur déja existant.';
 			echo $info;
-			// require('App/view/users/createOperator.php');
 		}
 	}
 	function goUpdateOperator()
 	{
 		$membreManager = new MembreManager();
-
 		$varModelGetInfoOperator = $membreManager->modelGetInfoOperator($_GET['id']);
-		//$varModelUpdateOperator = modelUpdateOperator();
 		if ($varModelGetInfoOperator) {
 			if ($varModelGetInfoOperator['droitUser'] == 0) {
-				$role = '<OPTION selected value="0">Membre</OPTION><OPTION  value="1">Moderateur</OPTION><OPTION value="2">Editeur</OPTION><OPTION value="3">Admin</OPTION>';
+				$role = '<OPTION selected value="0">Membre</OPTION> <OPTION value="1">Moderateur</OPTION><OPTION value="2">Editeur</OPTION><OPTION value="3">Admin</OPTION>';
 			} elseif ($varModelGetInfoOperator['droitUser'] == 1) {
 				$role = '<OPTION  value="0">Membre</OPTION><OPTION selected value="1">Moderateur</OPTION><OPTION value="2">Editeur</OPTION><OPTION value="3">Admin</OPTION>';
 			} elseif ($varModelGetInfoOperator['droitUser'] == 2) {
@@ -54,7 +48,6 @@ class ControllerBack
 			} else {
 				$role = '<OPTION selected value="0">Membre</OPTION><OPTION selected value="1">Moderateur</OPTION><OPTION value="2">Editeur</OPTION><OPTION selected value="3">Admin</OPTION>';
 			}
-
 			require('App/view/users/updateMembre.php');
 		}
 	}
@@ -63,7 +56,6 @@ class ControllerBack
 		$membreManager = new MembreManager();
 		$varPseudoCheck = $membreManager->modelinfoUpdateOperator($_GET['id']);
 		$varPseudo = false;
-
 		foreach ($varPseudoCheck as $data) {
 			if ($data['pseudo'] == $_POST['pseudoConnect']) {
 				$varPseudo = true;
@@ -73,13 +65,11 @@ class ControllerBack
 		$varPassCheck = $membreManager->modelPassUpdateOperator($_GET['id']);
 		$varPass = false;
 		foreach ($varPassCheck as $data) {
-
 			if ($_POST['passwordConnect'] != $data['pass']) {
 				$_POST['passwordConnect'] = password_hash($_POST['passwordConnect'], PASSWORD_DEFAULT);
 				echo 'password modifier';
 			}
 		}
-
 		if ($varPseudo == false) {
 			$varModelHandlingUpdateOperator = $membreManager->modelHandlingUpdateOperator($id = $_GET['id'], $pseudo = $_POST['pseudoConnect'], $password = $_POST['passwordConnect'], $email = $_POST['emailConnect'], $power = $_POST['power']);
 			if ($varModelHandlingUpdateOperator) {
@@ -87,7 +77,6 @@ class ControllerBack
 			}
 		} else {
 			$info = 'utilsateur déja existant.';
-
 			require('view/update/adUpdateOperator.php');
 		}
 	}

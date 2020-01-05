@@ -12,7 +12,6 @@
 		<div><button type="submit" name="submit">UPLOAD</button></div>
 	</form>
 	<p id="erreur"></p>
-
 		<div class="containerList">
 			<h1>Liste des Rubriques</h1>
 			<ul>

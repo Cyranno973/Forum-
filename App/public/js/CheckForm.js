@@ -15,7 +15,7 @@ document.forms[this.nameForm].addEventListener("submit", function(e) {
       document.getElementById("erreur").innerHTML = erreur;
       return false;
     } else {
-      alert("Formulaire envoyé !");
+   
     }
    });
 	}

@@ -1,6 +1,5 @@
 <?php $title = "Roman Jean Forteroche"; ?>
 <?php ob_start(); ?>
-
 <div class="login-box">
 		<h1>Mise a jours de compte </h1>
 		<form method="POST" action="index.php?action=handlingUpdateOperator&id=<?= $_GET['id'] ?>">
@@ -9,7 +8,7 @@
 				<input type="text" value='<?= $varModelGetInfoOperator['pseudo'] ?>'name="pseudoConnect" id="pseudoConnect" placeholder="Entrez un nom" required>
 			</div>
 			<div class="textbox">
-				<i class="fas fa-lock"></i>	<!-- les input mot de passe sont indetique a corriger  -->
+				<i class="fas fa-lock"></i>
 				<input type="password" value='<?= $varModelGetInfoOperator['pass'] ?>'name="passwordConnect" id="passwordConnect" placeholder="Votre un mot de passe" required>
 			</div>
 			<div class="textbox">
