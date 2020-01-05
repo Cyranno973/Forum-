@@ -31,6 +31,7 @@ function verifyDuplicateInscription()
     $membreManager = new MembreManager();
     $pseudoCheck =  $membreManager->checkPseudo($_POST['pseudoInscription']);
     if ($pseudoCheck == false) {
+        echo'yo';
         $membreManager->ajoutMembre($_POST['pseudoInscription'], $_POST['passwordInscription'], $_POST['emailInscription']);
         header('location:index.php');
     } else {
@@ -146,7 +147,7 @@ function addcomment()
 { 
     $commentManager = new CommentManager();
     $insertComment = $commentManager->ajoutComment($_SESSION['idUser'], $_GET['id'], $_POST['message']);
-    header('location:index.php?action=goSelectSujet&id='. $_GET['id']);
+    header('location:index.php?action=goSelectSujet&id='. $_GET['id'].'&page='.$_GET['page']);
 }
 function goDeleteComment()
 {

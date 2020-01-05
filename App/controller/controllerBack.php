@@ -1,4 +1,5 @@
 <?php
+
 namespace App\controller;
 
 use \App\model\PostManager;
@@ -6,7 +7,8 @@ use \App\model\MembreManager;
 use \App\model\CommentManager;
 use \App\model\AlertManager;
 
-class ControllerBack{
+class ControllerBack
+{
 
 
 	function goAddOperator()
@@ -16,7 +18,7 @@ class ControllerBack{
 	function handlingInscriptionOperator()
 	{
 		$membreManager = new MembreManager();
-    
+
 		$varPseudoCheck = $membreManager->modelPseudoCheckOperator($_POST['pseudoInscription']);
 		if ($varPseudoCheck == false) {
 			$varModelHandlingInscriptionOperator = $membreManager->modelHandlingInscriptionOperator(
@@ -26,24 +28,33 @@ class ControllerBack{
 				$power = $_POST['power']
 			);
 			if ($varModelHandlingInscriptionOperator) {
-					$info = 'utilsateur ajouter avec succes';
-					echo$info;
-				 require('App/view/users/createOperator.php');
+				$info = 'utilsateur ajouter avec succes';
+				echo $info;
+				require('App/view/users/createOperator.php');
 			}
 		} else {
 			$info = 'utilsateur déja existant.';
-	echo$info;
+			echo $info;
 			// require('App/view/users/createOperator.php');
 		}
 	}
 	function goUpdateOperator()
 	{
 		$membreManager = new MembreManager();
-	
+
 		$varModelGetInfoOperator = $membreManager->modelGetInfoOperator($_GET['id']);
 		//$varModelUpdateOperator = modelUpdateOperator();
 		if ($varModelGetInfoOperator) {
-	
+			if ($varModelGetInfoOperator['droitUser'] == 0) {
+				$role = '<OPTION selected value="0">Membre</OPTION><OPTION  value="1">Moderateur</OPTION><OPTION value="2">Editeur</OPTION><OPTION value="3">Admin</OPTION>';
+			} elseif ($varModelGetInfoOperator['droitUser'] == 1) {
+				$role = '<OPTION  value="0">Membre</OPTION><OPTION selected value="1">Moderateur</OPTION><OPTION value="2">Editeur</OPTION><OPTION value="3">Admin</OPTION>';
+			} elseif ($varModelGetInfoOperator['droitUser'] == 2) {
+				$role = '<OPTION selected value="0">Membre</OPTION><OPTION selected value="1">Moderateur</OPTION><OPTION selected value="2">Editeur</OPTION><OPTION value="3">Admin</OPTION>';
+			} else {
+				$role = '<OPTION selected value="0">Membre</OPTION><OPTION selected value="1">Moderateur</OPTION><OPTION value="2">Editeur</OPTION><OPTION selected value="3">Admin</OPTION>';
+			}
+
 			require('App/view/users/updateMembre.php');
 		}
 	}
@@ -52,7 +63,7 @@ class ControllerBack{
 		$membreManager = new MembreManager();
 		$varPseudoCheck = $membreManager->modelinfoUpdateOperator($_GET['id']);
 		$varPseudo = false;
-	
+
 		foreach ($varPseudoCheck as $data) {
 			if ($data['pseudo'] == $_POST['pseudoConnect']) {
 				$varPseudo = true;
@@ -62,13 +73,13 @@ class ControllerBack{
 		$varPassCheck = $membreManager->modelPassUpdateOperator($_GET['id']);
 		$varPass = false;
 		foreach ($varPassCheck as $data) {
-	
+
 			if ($_POST['passwordConnect'] != $data['pass']) {
 				$_POST['passwordConnect'] = password_hash($_POST['passwordConnect'], PASSWORD_DEFAULT);
 				echo 'password modifier';
 			}
 		}
-	
+
 		if ($varPseudo == false) {
 			$varModelHandlingUpdateOperator = $membreManager->modelHandlingUpdateOperator($id = $_GET['id'], $pseudo = $_POST['pseudoConnect'], $password = $_POST['passwordConnect'], $email = $_POST['emailConnect'], $power = $_POST['power']);
 			if ($varModelHandlingUpdateOperator) {
@@ -76,11 +87,11 @@ class ControllerBack{
 			}
 		} else {
 			$info = 'utilsateur déja existant.';
-	
+
 			require('view/update/adUpdateOperator.php');
 		}
 	}
-	
+
 
 
 
@@ -88,83 +99,82 @@ class ControllerBack{
 	function goCreateSujet()
 	{
 		$postManager = new PostManager();
-		$varCreateSujet = $postManager->modelCreateSujet( $_POST['nameSujet'], $_SESSION['idUser'], $_POST['sujetContent'],$_POST['fname']);
-		 header('location:index?action=listSujet');
+		$varCreateSujet = $postManager->modelCreateSujet($_POST['nameSujet'], $_SESSION['idUser'], $_POST['sujetContent'], $_POST['fname']);
+		header('location:index?action=listSujet');
 	}
 
 	function goUpdateSujet()
 	{
-		
+
 		$postManager = new PostManager();
 		$varListSujet = $postManager->modelListSujet();
 		$varListRubric = $postManager->modelListRubric();
 		$varRubricUser = $postManager->modelRubricUser($_GET['id']);
 
 		$varCheckRubric = $postManager->modelCheckSujet($_GET['id']);
-		 require('App/view/sujets/updateSujet.php');
+		require('App/view/sujets/updateSujet.php');
 	}
 	function goHandlingUpdateSujet()
 	{
-		
+
 		$postManager = new PostManager();
 		// echo$_GET['id'];
 		// echo $_POST['nameSujet'];
 		// echo$_SESSION['idUser'];
 		// echo$_POST['sujetContent'];
 		// echo$_POST['fname'];
-		$varHandlingUpdateSujet = $postManager->modelHandlingUpdateSujet( $_GET['id'], $_POST['nameSujet'], $_SESSION['idUser'], $_POST['sujetContent'],$_POST['fname']);
+		$varHandlingUpdateSujet = $postManager->modelHandlingUpdateSujet($_GET['id'], $_POST['nameSujet'], $_SESSION['idUser'], $_POST['sujetContent'], $_POST['fname']);
 		print_r($varHandlingUpdateSujet);
 		header('location:index?action=listSujet');
 	}
 
 	function goListSujet()
 	{
-	
+
 		$postManager = new PostManager();
 		$varListRubric = $postManager->modelListRubric();
 		$varListSujet = $postManager->modelListSujet();
-	
-		
-		  require('App/view/sujets/listSujet.php');
+
+
+		require('App/view/sujets/listSujet.php');
 	}
 	function goFilterSujet()
 	{
 
 		$postManager = new PostManager();
 		$varFilterSujet = $postManager->modelFilterSujet($_GET['id']);
-// print_r($varFilterSujet);
-		  require('App/view/sujets/filterSujet.php');
+		// print_r($varFilterSujet);
+		require('App/view/sujets/filterSujet.php');
 	}
 	function goSelectSujet()
 	{
 		$postManager = new PostManager();
-		$pageCourante=$_GET['page'];
+		$pageCourante = $_GET['page'];
 		$nbrCommentsByPages = 5;
-		$firstCommentPage = ($pageCourante-1)*$nbrCommentsByPages;
-		echo$pageCourante;
-		
-		$varCommentSujet = $postManager->modelGetComments($_GET['id'],$firstCommentPage,$nbrCommentsByPages);
+		$firstCommentPage = ($pageCourante - 1) * $nbrCommentsByPages;
+		// echo$pageCourante;
+
+		$varCommentSujet = $postManager->modelGetComments($_GET['id'], $firstCommentPage, $nbrCommentsByPages);
 		$varSelectSujet = $postManager->modelSelectSujet($_GET['id']);
 		$varNbrCommentsTotales = $postManager->modelNbrCommentsTotales($_GET['id']);
 		//  print_r($varNbrCommentsTotales);
-		
+
 		$nbPage = ceil($varNbrCommentsTotales / $nbrCommentsByPages);
-		if($_GET['page'] > $nbPage){
-		$current =$nbPage;
-		}
-		else{
+		if ($_GET['page'] > $nbPage) {
+			$current = $nbPage;
+		} else {
 			$current = $_GET['page'];
 		}
 
-		
+
 		// $varAllcomments = $postManager->modelAllcomments($_GET['id'], $firstCommentPage, $nbrCommentsByPages);
 		//   print_r($varAllcomments);
 		//  echo $varAllcomments['comment'];
-		
+
 		// print_r($varSelectSujet);
-	
-    //  print_r($varCommentSujet);
-		        require('App/view/sujets/selectSujet.php');
+
+		//  print_r($varCommentSujet);
+		require('App/view/sujets/selectSujet.php');
 	}
 
 
@@ -197,7 +207,6 @@ class ControllerBack{
 					$fileNameNew = uniqid('', true) . "." . $fileActualExt;
 					$fileDestination = 'App/public/img/' . $fileNameNew;
 					move_uploaded_file($fileTmpName, 	$fileDestination);
-					
 				} else {
 					echo "Votre fichier est trop grand";
 				}
@@ -208,18 +217,18 @@ class ControllerBack{
 			echo 'Vous ne pouvez pas mettre ce type de fichier';
 		}
 		$postManager = new PostManager();
-		$varCreateRubric = $postManager->modelCreateRubric($fileDestination,$titleRubric);
-		 
+		$varCreateRubric = $postManager->modelCreateRubric($fileDestination, $titleRubric);
+
 		header('location:index?action=listRubric');
 	}
 
 	function goUpdateRubric()
 	{
-		
+
 		$postManager = new PostManager();
 		$varListRubric = $postManager->modelListRubric();
 		$varCheckRubric = $postManager->modelCheckRubric($_GET['id']);
-		 require('App/view/rubrics/updateRubric.php');
+		require('App/view/rubrics/updateRubric.php');
 	}
 	function goHandlingUpdateRubric()
 	{
@@ -240,7 +249,6 @@ class ControllerBack{
 					$fileNameNew = uniqid('', true) . "." . $fileActualExt;
 					$fileDestination = 'App/public/img/' . $fileNameNew;
 					move_uploaded_file($fileTmpName, 	$fileDestination);
-					
 				} else {
 					echo "Votre fichier est trop grand";
 				}
@@ -251,28 +259,26 @@ class ControllerBack{
 			echo 'Vous ne pouvez pas mettre ce type de fichier';
 		}
 		$postManager = new PostManager();
-			$varUpdateRubric = $postManager->modelUpdateRubric($_GET['id'], $titleRubric, $fileDestination);
+		$varUpdateRubric = $postManager->modelUpdateRubric($_GET['id'], $titleRubric, $fileDestination);
 		header('location:index?action=listRubric');
 	}
 	function goDeleteRubric()
-{
-    $postManager = new PostManager();
-    $varDeleteRubric = $postManager->modelDeleteRubric($_GET['id']);
-    header('location:index?action=listRubric');
-}
-function goDeleteSujet()
-{
-    
-    $postManager = new PostManager();
-    $varDeleteSujet = $postManager->modelDeleteSujet($_GET['id']);
-    header('location:index?action=listSujet');
-}
-function goDeleteUser()
-{
-    
-    $membreManager = new MembreManager();
-    $varDeleteMembre = $membreManager->modelDeleteUser($_GET['id']);
-    header('location:index?action=listMembres');
-}
+	{
+		$postManager = new PostManager();
+		$varDeleteRubric = $postManager->modelDeleteRubric($_GET['id']);
+		header('location:index?action=listRubric');
+	}
+	function goDeleteSujet()
+	{
 
+		$postManager = new PostManager();
+		$varDeleteSujet = $postManager->modelDeleteSujet($_GET['id']);
+		header('location:index?action=listSujet');
+	}
+	function goDeleteUser()
+	{
+		$membreManager = new MembreManager();
+		$varDeleteMembre = $membreManager->modelDeleteUser($_GET['id']);
+		header('location:index?action=listMembres');
+	}
 }

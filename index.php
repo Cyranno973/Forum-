@@ -1,134 +1,133 @@
 <?php
-
 require "vendor/autoload.php";
-
 use \App\controller\ControllerFront;
 use \App\controller\ControllerBack;
+
 try {
 	//si séssion n'existe pas je start
 	if (!isset($_SESSION)) {
 		session_start();
 	}
-	if (isset($_GET['admin'])) {
-		header('location:admin/index.php?admin');
-	}
-
-
-
 	if (isset($_GET['action'])) {
-		if ($_GET['action'] == 'showChapters') {
-			$monFront = new controllerFront;
-			$monFront->allChapters();
-		} elseif ($_GET['action'] == 'showChapter') {
-			if (isset($_GET['id']) && $_GET['id'] > 0) {
-				$monFront = new controllerFront;
-				$monFront->selectionChapter();
+		if ($_GET['action'] == 'goFilterSujet') {
+			if (!empty($_GET['id']) && $_GET['id'] > 0) {
+				$monBack = new controllerBack;
+				$monBack->gofilterSujet();
 			} else {
-				throw new Exception('id  perdu introuvabble');
+				throw new Exception('Probleme Id Rubrique');
 			}
-		} elseif ($_GET['action'] == 'goFilterSujet') {
-			$monBack = new controllerBack;
-			$monBack->gofilterSujet();
 		} elseif ($_GET['action'] == 'goSelectSujet') {
-			if(isset($_GET['page']) && !empty($_GET['page']) && ctype_digit($_GET['page']) == 1){
-				
+			if (isset($_GET['page']) && !empty($_GET['page']) && ctype_digit($_GET['page']) == 1) {
 				$monBack = new controllerBack;
 				$monBack->goSelectSujet();
-			}
-			else{
+			} else {
 				$pageCourante = 1;
 			}
-			
-		} elseif ($_GET['action'] == 'listSujet') {
-			$monBack = new controllerBack;
-			$monBack->goListSujet();
-		} elseif ($_GET['action'] == 'goUpdateSujet') {
-
-			$monBack = new controllerBack;
-			$monBack->goUpdateSujet();
 		} elseif ($_GET['action'] == 'listRubric') {
-			$monFront = new controllerFront;
-			$monFront->goListRubric();
+			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] > 0) {
+				$monFront = new controllerFront;
+				$monFront->goListRubric();
+			} else {
+				throw new Exception('Interdit d \'accès');
+			}
+		} elseif ($_GET['action'] == 'createRubric') {
+			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] > 0) {
+				if (!empty($_POST['nameRubric']) and !empty($_FILES['file'])) {
+					$monBack = new controllerBack;
+					$monBack->goCreateRubric();
+				} else {
+					throw new Exception('Veuillez vous ');
+				}
+			} else {
+				throw new Exception('Veuillez vous ');
+			}
+		} elseif ($_GET['action'] == 'goUpdateRubric') {
+			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] > 0) {
+				if (isset($_GET['id']) && $_GET['id'] > 0) {
+					$monBack = new controllerBack;
+					$monBack->goUpdateRubric();
+				} else {
+					throw new Exception('Probleme Id');
+				}
+			} else {
+				throw new Exception('Interdit d \'accès');
+			}
+		} elseif ($_GET['action'] == 'goDeleteRubric') {
+			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] > 0) {
+				if (isset($_GET['id']) && $_GET['id'] > 0) {
+					$monBack = new controllerBack;
+					$monBack->goDeleteRubric();
+				} else {
+					throw new Exception('Probleme Id');
+				}
+			} else {
+				throw new Exception('Interdit d \'accès');
+			}
+		} elseif ($_GET['action'] == 'listSujet') {
+			if (isset($_SESSION['membre'])) {
+				$monBack = new controllerBack;
+				$monBack->goListSujet();
+			} else {
+				throw new Exception('Interdit d \'accès');
+			}
+		} elseif ($_GET['action'] == 'goUpdateSujet') {
+			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] > 0) {
+				if (isset($_GET['id']) && $_GET['id'] > 0) {
+					$monBack = new controllerBack;
+					$monBack->goUpdateSujet();
+				} else {
+					throw new Exception('Probleme Id');
+				}
+			} else {
+				throw new Exception('Interdit d \'accès');
+			}
 		} elseif ($_GET['action'] == 'createSujet') {
 			if ((!empty($_SESSION['membre']))) {
 				if (!empty($_POST['nameSujet']) and !empty($_POST['sujetContent']) and !empty($_POST['fname'])) {
 					$_POST['nameSujet'] = htmlspecialchars($_POST['nameSujet']);
-					// echo$_POST['fname'];
 					$monBack = new controllerBack;
 					$monBack->goCreateSujet();
 				} else {
-
 					throw new Exception('Votre document ou titre est vide');
 				}
 			} else {
 				throw new Exception('Vous devez être membre  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'goHandlingUpdateSujet') {
-			if ((!empty($_SESSION['membre']))) {
-				if (!empty($_POST['nameSujet']) and !empty($_POST['sujetContent']) and !empty($_POST['fname'])) {
+			if (!empty($_SESSION['membre']) && $_SESSION['powerUser'] > 1) {
+				if (!empty($_POST['nameSujet']) && !empty($_POST['sujetContent']) && !empty($_POST['fname'])) {
 					$_POST['nameSujet'] = htmlspecialchars($_POST['nameSujet']);
-					//    echo $_GET['id'];
-					//    echo $_POST['nameSujet'];
-					//    echo  $_SESSION['idUser'];
-					//    echo $_POST['sujetContent'];
-					//    echo$_POST['fname'];
-
-
 					$monBack = new controllerBack;
 					$monBack->goHandlingUpdateSujet();
 				} else {
-
 					throw new Exception('Votre document ou titre est vide');
 				}
 			} else {
-				throw new Exception('Vous devez être membre  pour y acceder');
-			}
-		} elseif ($_GET['action'] == 'createRubric') {
-			if (!empty($_POST['nameRubric']) and !empty($_FILES['file'])) {
-				// print_r($_FILES['file']);
-				$monBack = new controllerBack;
-				$monBack->goCreateRubric();
-			} else {
-				throw new Exception('Veuillez vous ');
-			}
-		} elseif ($_GET['action'] == 'goUpdateRubric') {
-
-			if (isset($_GET['id']) && $_GET['id'] > 0) {
-
-				$monBack = new controllerBack;
-				$monBack->goUpdateRubric();
-			} else {
-				throw new Exception('Veuillez vous aza1 ');
-			}
-		} elseif ($_GET['action'] == 'goDeleteRubric') {
-
-			if (isset($_GET['id']) && $_GET['id'] > 0) {
-
-				$monBack = new controllerBack;
-				$monBack->goDeleteRubric();
-			} else {
-				throw new Exception('Veuillez vous aza1 ');
+				throw new Exception('Interdit d\'accès');
 			}
 		} elseif ($_GET['action'] == 'goDeleteSujet') {
+			if (!empty($_SESSION['membre']) && $_SESSION['powerUser'] > 1) {
+				if (isset($_GET['id']) && $_GET['id'] > 0) {
 
-			if (isset($_GET['id']) && $_GET['id'] > 0) {
-
-				$monBack = new controllerBack;
-				$monBack->goDeleteSujet();
+					$monBack = new controllerBack;
+					$monBack->goDeleteSujet();
+				} else {
+					throw new Exception('Probleme Id');
+				}
 			} else {
-				throw new Exception('Veuillez vous aza5 ');
+				throw new Exception('Interdit d\'accès');
 			}
 		} elseif ($_GET['action'] == 'goHandlingUpdateRubric') {
-			if (isset($_GET['id']) && $_GET['id'] > 0) {
-				$monBack = new controllerBack;
-
-				$monBack->goHandlingUpdateRubric();
+			if (!empty($_SESSION['membre']) && $_SESSION['powerUser'] > 1) {
+				if (isset($_GET['id']) && $_GET['id'] > 0) {
+					$monBack = new controllerBack;
+					$monBack->goHandlingUpdateRubric();
+				} else {
+					throw new Exception('Probleme Id');
+				}
 			} else {
-				throw new Exception('Veuillez vous aza2 ');
+				throw new Exception('Interdit d \'accès');
 			}
-		} elseif ($_GET['action'] == 'admin') {
-			$monFront = new controllerFront;
-			$monFront->goAdmin();
 		} elseif ($_GET['action'] == 'inscription') {
 			$monFront = new controllerFront;
 			$monFront->inscription();
@@ -148,9 +147,8 @@ try {
 					$monFront->verifyDuplicateInscription();
 				}
 			} else {
-
 				$monFront = new controllerFront;
-				$monFront->inscription();
+				//	$monFront->inscription();
 			}
 		} elseif ($_GET['action'] == 'traitementMembre') {
 
@@ -164,70 +162,31 @@ try {
 				$monFront->goConnect();
 			}
 		} elseif ($_GET['action'] == 'ajoutComment') {
-			if (!empty($_POST['message'])) {
-
-				$_POST['message'] = htmlspecialchars($_POST['message']);
-				if (!empty($_SESSION['membre'])) {
-
+			if ((isset($_SESSION['membre']))) {
+				if (!empty($_POST['message'])) {
+					$_POST['message'] = htmlspecialchars($_POST['message']);
 					$monFront = new controllerFront;
 					$monFront->addComment();
 				} else {
-					throw new Exception('Veuillez vous connectez');
+					$messageError = 'veuillez inserez un message';
+					require('App/view/error.php');
 				}
 			} else {
-
-				$messageError = 'veuillez inserez un message';
-				require('App/view/error.php');
+				throw new Exception('Veuillez vous connectez');
 			}
 		} elseif ($_GET['action'] == 'connexion') {
 			$monFront = new controllerFront;
 			$monFront->goConnect();
-		} elseif ($_GET['action'] == 'listChapters') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				$monFront = new controllerFront;
-				$monFront->golistChapters();
-			} else {
-				throw new Exception('Vous devez être administrateur  pour y acceder');
-			}
-		}  elseif ($_GET['action'] == 'handlingInscriptionChapter') {
-			if ((!empty($_SESSION['membre']) and  ($_SESSION['powerUser'] == 1))) {
-				if (!empty($_POST['titleChapter']) and !empty($_POST['chapterContent'])) {
-					$_POST['titleChapter'] = htmlspecialchars($_POST['titleChapter']);
-
-					$monFront = new controllerFront;
-					$monFront->handlingInscriptionChapter();
-				} else {
-
-					throw new Exception('Votre document ou titre est vide');
-				}
-			} else {
-				throw new Exception('Vous devez être administrateur  pour y acceder');
-			}
 		} elseif ($_GET['action'] == 'addAlert') {
-			
-			if ((!empty($_GET['idcomment'])) and (!empty($_SESSION['idUser'])) and (!empty($_GET['id_sujet']))) {
-				
-				
-				$monFront = new controllerFront;
-				$monFront->goAddAlert();
-			}
-		} elseif ($_GET['action'] == 'goUpdateChapter') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				if (!empty($_GET['id'])) {
+			if ((isset($_SESSION['membre']))) {
+				if ((!empty($_GET['idcomment'])) and (!empty($_SESSION['idUser'])) and (!empty($_GET['id_sujet']))) {
 					$monFront = new controllerFront;
-					$monFront->goUpdateChapter();
+					$monFront->goAddAlert();
+				} else {
+					throw new Exception('Probleme Id');
 				}
 			} else {
-				throw new Exception('Vous devez être administrateur  pour y acceder');
-			}
-		} elseif ($_GET['action'] == 'handlingUpdateChapter') {
-			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] == 1) {
-				if (!empty($_GET['id'])) {
-					$monFront = new controllerFront;
-					$monFront->gohandlingUpdateChapter();
-				}
-			} else {
-				throw new Exception('Vous devez être administrateur  pour y acceder');
+				throw new Exception('Veuillez vous connectez');
 			}
 		} elseif ($_GET['action'] == 'listMembres') {
 			if (!empty($_SESSION['membre']) and  $_SESSION['powerUser'] >= 1) {
@@ -258,61 +217,68 @@ try {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'goDeleteUser') {
-			
-			if (!empty($_SESSION['membre']) and $_SESSION['powerUser'] >= 1) {
-
+			if (!empty($_SESSION['membre']) and $_SESSION['powerUser'] >= 3) {
 				$monBack = new controllerBack;
 				$monBack->goDeleteUser();
 			} else {
 				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'goAddOperator') {
-			
-			$monBack = new controllerBack;
-				 $monBack->goAddOperator();
-			
-			// TODO AJOUTER MEMMBRE
-		}elseif ($_GET['action'] == 'goUpdateOperator') {
-			if (isset($_GET['id']) and (!empty($_GET['id']))) {
+			if (!empty($_SESSION['membre']) and $_SESSION['powerUser'] >= 3) {
 				$monBack = new controllerBack;
-				$monBack->goUpdateOperator();
-				
-			}
-		}  elseif ($_GET['action'] == 'handlingInscriptionOperator') {
-
-			if (!empty($_POST['pseudoInscription']) and !empty($_POST['passwordInscription'])  and !empty($_POST['emailInscription']) and !empty($_POST['power'])) {
-				$_POST['pseudoInscription'] = strip_tags($_POST['pseudoInscription']);
-				$_POST['passwordInscription'] = strip_tags($_POST['passwordInscription']);
-				$_POST['emailInscription'] = strip_tags($_POST['emailInscription']);
-				$_POST['power'] = strip_tags($_POST['power']);
-				$monBack = new controllerBack;
-				$monBack->handlingInscriptionOperator();
-				
+				$monBack->goAddOperator();
 			} else {
-				echo 'echec handlingInscriptionOperator';
+				throw new Exception('Vous devez être administrateur  pour y acceder');
+			}
+		} elseif ($_GET['action'] == 'goUpdateOperator') {
+			if (!empty($_SESSION['membre']) and $_SESSION['powerUser'] >= 1) {
+				if (isset($_GET['id']) and (!empty($_GET['id']))) {
+					$monBack = new controllerBack;
+					$monBack->goUpdateOperator();
+				} else {
+					throw new Exception('Probleme ID');
+				}
+			} else {
+				throw new Exception('Vous devez être administrateur  pour y acceder');
+			}
+		} elseif ($_GET['action'] == 'handlingInscriptionOperator') {
+			if (!empty($_SESSION['membre']) and $_SESSION['powerUser'] >= 3)
+				if (!empty($_POST['pseudoInscription']) and !empty($_POST['passwordInscription'])  and !empty($_POST['emailInscription']) and !empty($_POST['power'])) {
+					$_POST['pseudoInscription'] = strip_tags($_POST['pseudoInscription']);
+					$_POST['passwordInscription'] = strip_tags($_POST['passwordInscription']);
+					$_POST['emailInscription'] = strip_tags($_POST['emailInscription']);
+					$_POST['power'] = strip_tags($_POST['power']);
+					$monBack = new controllerBack;
+					$monBack->handlingInscriptionOperator();
+				} else {
+					throw new Exception('Probleme Ajout utilisateur');
+				} else {
+				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'handlingUpdateOperator') {
-
-			if (!empty($_GET['id']) and !empty($_POST['pseudoConnect']) and !empty($_POST['passwordConnect'])  and !empty($_POST['emailConnect']) and !empty($_POST['power'])) {
-				$_POST['pseudoConnect'] = strip_tags($_POST['pseudoConnect']);
-				$_POST['passwordConnect'] = strip_tags($_POST['passwordConnect']);
-				$_POST['emailConnect'] = strip_tags($_POST['emailConnect']);
-				$_POST['power'] = strip_tags($_POST['power']);
-				$monBack = new controllerBack;
-				$monBack->handlingUpdateOperator();
-				
-			} else {
-				echo 'echec handlingUpdateOperator';
+			if (!empty($_SESSION['membre']) and $_SESSION['powerUser'] >= 3)
+				if (!empty($_GET['id']) && !empty($_POST['pseudoConnect']) && !empty($_POST['passwordConnect']) && !empty($_POST['emailConnect']) && isset($_POST['power'])) {
+					$_POST['pseudoConnect'] = strip_tags($_POST['pseudoConnect']);
+					$_POST['passwordConnect'] = strip_tags($_POST['passwordConnect']);
+					$_POST['emailConnect'] = strip_tags($_POST['emailConnect']);
+					$_POST['power'] = strip_tags($_POST['power']);
+					$monBack = new controllerBack;
+					$monBack->handlingUpdateOperator();
+				} else {
+					throw new Exception('Probleme Ajout utilisateurs');
+				} else {
+				throw new Exception('Vous devez être administrateur  pour y acceder');
 			}
 		} elseif ($_GET['action'] == 'goDeleteAlert') {
 			if ((!empty($_SESSION['membre'])) and  ($_SESSION['powerUser'] >= 1)) {
-
 				if (!empty($_GET['id'])) {
 					$monFront = new controllerFront;
 					$monFront->goDeleteAlert();
 				} else {
-					throw new Exception('Vous devez être administrateur  pour y acceder');
+					throw new Exception('Probleme ID');
 				}
+			} else {
+				throw new Exception('Interdit');
 			}
 		}
 	} else {

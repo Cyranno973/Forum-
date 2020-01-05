@@ -8,9 +8,6 @@
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-design-icons-iconfont@5.0.1/dist/material-design-icons.min.css">
     <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'>
-
-
-
     <script src="App/public/js/jquery.js"></script>
     <script src="App/plugin/tinymce/tinymce.min"></script>
     <script src="App/plugin/tinymce/init-tinymce"></script>
@@ -19,8 +16,15 @@
 </head>
 
 <body>
+<div class="weather">
+			<span class="citie" ></span>
+			<span class="temp"></span>
+			<span class="condition"></span>
+		</div>
 <div class="header">
+
 		<div class="logo">
+		<span><a href="index.php?">CyrATech</a></span>
 		</div>
 		<a href="#" class="nav-trigger"><span></span></a>
 	</div>
@@ -28,6 +32,7 @@
 		<div class="logo">
 			<span><a href="index.php?">CyraTech</a></span>
 		</div>	
+		
 		<nav>
 	
 			<ul>
@@ -37,17 +42,17 @@
 				</li>
 					<?php if ($_SESSION['powerUser'] == 0) :?>
 						<li><a href="index.php?">Home</a></li>
-						<li><a href="index.php?action=listComments">Profile</a></li>
-						<li><a href="index.php?action=createSujet">Creer un sujet</a></li>
+						
+						<li><a href="index.php?action=listSujet">Creer un sujet</a></li>
 					<li><a href="index.php?action=deconnexion">DECONNEXION</a>
 					<i class="fas fa-sign-out-alt"></i></li>
 				
 					<?php elseif ($_SESSION['powerUser'] == 1) :?>
 						<li><a href="index.php?">Home</a></li>
-						<li><a href="index.php?action=listComments">Profile</a></li>
-						<li><a href="index.php?action=createSujet">Creer un sujet</a></li>
-					<li><a href="index.php?action=listComments">Gestion des Commentaires</a></li>
-                    <li><a href="index.php?action=listAlerts">Gestion des Alerts</a></li>
+					
+						<li><a href="index.php?action=listSujet">Creer un sujet</a></li>
+					<li><a href="index.php?action=listComments"> Commentaires</a></li>
+                    <li><a href="index.php?action=listAlerts"> Alerts</a></li>
 					<li>	
 					<span><i class="fas fa-sign-out-alt"></i></span>
 					<span><a href="index.php?action=deconnexion">DECONNEXION</a></span>
@@ -56,22 +61,21 @@
 
 				<?php elseif ($_SESSION['powerUser'] == 2) :?>
 					<li><a href="index.php?">Home</a></li>
-					<li><a href="index.php?action=listComments">Profile</a></li>
+				
 					<li>
 					<i class="fas fa-list-alt"></i>
-					<a href="index.php?action=listChapters">Gestion des Rubrique</a>
+					<a href="index.php?action=listChapters"> Rubrique</a>
 				</li>
-						<li><a href="index.php?action=listChapters">Gestion des Sujets</a></li>
+						<li><a href="index.php?action=listSujet"> Sujets</a></li>
 					<li><a href="index.php?action=deconnexion">DECONNEXION</a></li>
 
 					<?php elseif ($_SESSION['powerUser'] == 3) :?>
 						<li><a href="index.php?">Home</a></li>
-						<li><a href="index.php?action=listComments">Profile</a></li>
-						<li><a href="index.php?action=listMembres">Gestion des Membres</a></li>
-					<li><a href="index.php?action=listComments">Gestion des Commentaires</a></li>
-					<li><a href="index.php?action=listAlerts">Gestion des Alerts</a></li>
-					<li><a href="index.php?action=listSujet">Gestion des Sujets</a></li>
-						<li><a href="index.php?action=listRubric">Gestion des Rubrique</a></li>
+						<li><a href="index.php?action=listMembres"> Membres</a></li>
+					<li><a href="index.php?action=listComments"> Commentaires</a></li>
+					<li><a href="index.php?action=listAlerts"> Alerts</a></li>
+					<li><a href="index.php?action=listSujet"> Sujets</a></li>
+						<li><a href="index.php?action=listRubric"> Rubrique</a></li>
 					<li><a href="index.php?action=deconnexion">DECONNEXION</a></li>
 				<?php endif; ?>	
 			
@@ -97,8 +101,9 @@
 
 <?= $content ?>
 
+<script src='App/public/js/CheckForm'></script>
+<script src='App/public/js/main.js'></script>
 
-        <script src='App/public/js/main'></script>
 </body>
 
 </html>

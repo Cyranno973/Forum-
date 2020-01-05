@@ -5,7 +5,7 @@
 <div class="main-content">
 	<div class="backcontainerlist">
 	<div class="container_form_rubric">
-	<form action="index.php?action=createSujet" method="POST" enctype="multipart/form-data">
+	<form action="index.php?action=createSujet" method="POST" enctype="multipart/form-data" name="sujets">
 	<div class="controls">
         <select multiple="" name="fname" id="select-rubric" class="form-control chosen-select" required>
 		<?php 	while($data = $varListRubric->fetch() ) : ?>
@@ -29,7 +29,8 @@
 			<div><button type="submit" name="submit">Envoyer</button></div>
 		</div>
 	</form>
-
+	<p id="erreur"></p>
+	<?php if (isset($_SESSION['idUser']) && $_SESSION['powerUser'] > 0 ) : ?>
 	<div class="containerList">
 			<h1>Liste des Sujets</h1>
 			<ul>
@@ -43,6 +44,7 @@
 				<?php endwhile; ?>
 			</ul>
 		</div>
+			<?php endif; ?>
 	</div>
 </div>
 

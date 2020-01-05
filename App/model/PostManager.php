@@ -155,7 +155,7 @@ class PostManager extends Manager
 	public function modelGetComments($id,$depart,$nbrCommentsByPages)
 	{
 		$db = $this->dbConnect();
-		$comments = $db->prepare('SELECT c.id, comment, pseudo FROM comments c, users u  Where u.id = c.id_auteur AND id_sujet= ? LIMIT '.$depart.','.$nbrCommentsByPages);
+		$comments = $db->prepare('SELECT c.id, comment, pseudo FROM comments c, users u  Where u.id = c.id_auteur AND id_sujet= ? ORDER BY id DESC LIMIT '.$depart.','.$nbrCommentsByPages);
 		$comments->execute(array($id));
 	
 		//  $comments = $comments->fetch();

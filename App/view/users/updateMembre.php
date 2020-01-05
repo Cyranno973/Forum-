@@ -1,8 +1,6 @@
 <?php $title = "Roman Jean Forteroche"; ?>
 <?php ob_start(); ?>
-<?php
-$role = ($varModelGetInfoOperator['droitUser'] == 1) ? '<OPTION value="2">Editeur</OPTION><OPTION selected value="1">Moderateur</OPTION>' : '<OPTION selected value="2">Editeur</OPTION><OPTION value="1">Moderateur</OPTION>';
-?>
+
 <div class="login-box">
 		<h1>Mise a jours de compte </h1>
 		<form method="POST" action="index.php?action=handlingUpdateOperator&id=<?= $_GET['id'] ?>">
