@@ -14,10 +14,11 @@
     <link rel='stylesheet' href='App/public/css/style.css'>
     <title><?= $title ?></title>
 </head>
+
 <body>
-<?= $content ?>
-        <script src='App/public/js/CheckForm.js'></script>
-        <script src='App/public/js/main.js'></script>
+    <?= $content ?>
+    <script src='App/public/js/CheckForm.js'></script>
+    <script src='App/public/js/main.js'></script>
 </body>
 
 </html>

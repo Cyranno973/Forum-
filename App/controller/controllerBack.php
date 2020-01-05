@@ -80,11 +80,6 @@ class ControllerBack
 			require('view/update/adUpdateOperator.php');
 		}
 	}
-
-
-
-
-
 	function goCreateSujet()
 	{
 		$postManager = new PostManager();
@@ -94,37 +89,25 @@ class ControllerBack
 
 	function goUpdateSujet()
 	{
-
 		$postManager = new PostManager();
 		$varListSujet = $postManager->modelListSujet();
 		$varListRubric = $postManager->modelListRubric();
 		$varRubricUser = $postManager->modelRubricUser($_GET['id']);
-
 		$varCheckRubric = $postManager->modelCheckSujet($_GET['id']);
 		require('App/view/sujets/updateSujet.php');
 	}
 	function goHandlingUpdateSujet()
 	{
-
 		$postManager = new PostManager();
-		// echo$_GET['id'];
-		// echo $_POST['nameSujet'];
-		// echo$_SESSION['idUser'];
-		// echo$_POST['sujetContent'];
-		// echo$_POST['fname'];
 		$varHandlingUpdateSujet = $postManager->modelHandlingUpdateSujet($_GET['id'], $_POST['nameSujet'], $_SESSION['idUser'], $_POST['sujetContent'], $_POST['fname']);
 		print_r($varHandlingUpdateSujet);
 		header('location:index?action=listSujet');
 	}
-
 	function goListSujet()
 	{
-
 		$postManager = new PostManager();
 		$varListRubric = $postManager->modelListRubric();
 		$varListSujet = $postManager->modelListSujet();
-
-
 		require('App/view/sujets/listSujet.php');
 	}
 	function goFilterSujet()
@@ -132,7 +115,6 @@ class ControllerBack
 
 		$postManager = new PostManager();
 		$varFilterSujet = $postManager->modelFilterSujet($_GET['id']);
-		// print_r($varFilterSujet);
 		require('App/view/sujets/filterSujet.php');
 	}
 	function goSelectSujet()
@@ -141,28 +123,15 @@ class ControllerBack
 		$pageCourante = $_GET['page'];
 		$nbrCommentsByPages = 5;
 		$firstCommentPage = ($pageCourante - 1) * $nbrCommentsByPages;
-		// echo$pageCourante;
-
 		$varCommentSujet = $postManager->modelGetComments($_GET['id'], $firstCommentPage, $nbrCommentsByPages);
 		$varSelectSujet = $postManager->modelSelectSujet($_GET['id']);
 		$varNbrCommentsTotales = $postManager->modelNbrCommentsTotales($_GET['id']);
-		//  print_r($varNbrCommentsTotales);
-
 		$nbPage = ceil($varNbrCommentsTotales / $nbrCommentsByPages);
 		if ($_GET['page'] > $nbPage) {
 			$current = $nbPage;
 		} else {
 			$current = $_GET['page'];
 		}
-
-
-		// $varAllcomments = $postManager->modelAllcomments($_GET['id'], $firstCommentPage, $nbrCommentsByPages);
-		//   print_r($varAllcomments);
-		//  echo $varAllcomments['comment'];
-
-		// print_r($varSelectSujet);
-
-		//  print_r($varCommentSujet);
 		require('App/view/sujets/selectSujet.php');
 	}
 
@@ -176,17 +145,6 @@ class ControllerBack
 		$fileSize = $_FILES['file']['size'];
 		$fileError = $_FILES['file']['error'];
 		$fileType = $_FILES['file']['type'];
-
-
-		// echo$titleRubric = $_POST['nameRubric'];
-		// print_r($_FILES['file']);
-		// echo$fileName = $_FILES['file']['name'];
-		// echo$fileTmpName = $_FILES['file']['tmp_name'];
-		// echo$fileSize = $_FILES['file']['size'];
-		// echo$fileError = $_FILES['file']['error'];
-		// echo$fileType = $_FILES['file']['type'];
-
-
 		$fileExt = explode('.', $fileName);
 		$fileActualExt = strtolower(end($fileExt));
 		$allowed = array('jpg', 'jpeg', 'png');
@@ -207,13 +165,11 @@ class ControllerBack
 		}
 		$postManager = new PostManager();
 		$varCreateRubric = $postManager->modelCreateRubric($fileDestination, $titleRubric);
-
 		header('location:index?action=listRubric');
 	}
 
 	function goUpdateRubric()
 	{
-
 		$postManager = new PostManager();
 		$varListRubric = $postManager->modelListRubric();
 		$varCheckRubric = $postManager->modelCheckRubric($_GET['id']);
@@ -228,7 +184,6 @@ class ControllerBack
 		$fileSize = $_FILES['file']['size'];
 		$fileError = $_FILES['file']['error'];
 		$fileType = $_FILES['file']['type'];
-
 		$fileExt = explode('.', $fileName);
 		$fileActualExt = strtolower(end($fileExt));
 		$allowed = array('jpg', 'jpeg', 'png');
@@ -259,7 +214,6 @@ class ControllerBack
 	}
 	function goDeleteSujet()
 	{
-
 		$postManager = new PostManager();
 		$varDeleteSujet = $postManager->modelDeleteSujet($_GET['id']);
 		header('location:index?action=listSujet');

@@ -1,10 +1,9 @@
 <?php $title = "Roman Jean Forteroche"; ?>
 <?php ob_start(); ?>
-
-<div class="inscription">
-
-	<div class="container_connexion">
-
+<div class="homer">
+	<p class="home"><a href="index.php?">Accueil</a></p>
+	<p class="home"><a href="index.php?action=connexion">Connexion</a></p>
+</div>
 		<div class="login-box">
 			<h1>Inscription</h1>
 			<form method="POST" action="index.php?action=inscriptionTraitement" name="inscription">
@@ -27,10 +26,5 @@
 				<input class="btnConnexion" type="submit" value="Je m'inscris" name="submitinscription">
 			</form>
 			<p id="erreur"></p>
-
-		</div>
-	</div>
-
-
 	<?php $content = ob_get_clean(); ?>
 	<?php require('App/view/templates/template.php'); ?>

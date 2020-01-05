@@ -13,7 +13,7 @@
 				<?php
 				$i = 1;
 				while ($data = $varFilterSujet->fetch()) : ?>
-					<li class=""><a href="index.php?action=goSelectSujet&id=<?=$data['id_sujet']; ?>"><span class="number"><?= $i++; ?></span><span class="list"><?= $data['title_sujet']; ?></a></span>
+					<li class=""><a href="index.php?action=goSelectSujet&id=<?=$data['id_sujet']; ?>&page=<?=1;?>"><span class="number"><?= $i++; ?></span><span class="list"><?= $data['title_sujet']; ?></a></span>
 	
 					</li>
 				<?php endwhile; ?>

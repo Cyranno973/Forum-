@@ -1,5 +1,7 @@
 <?php $title = "Cyra Forums"; ?>
 <?php ob_start(); ?>
+<div class="containerRead">
+<div class="read">
 <div class="main-content">
     <?= $varSelectSujet['title_sujet']; ?>
     <?= $varSelectSujet['content']; ?>
@@ -28,6 +30,8 @@
         <?php endfor; ?>
     <?php else : ?>
     <?php endif; ?>
+</div>
+</div>
 </div>
 <?php $content = ob_get_clean(); ?>
 <?php require('App/view/templates/templateHome.php'); ?>

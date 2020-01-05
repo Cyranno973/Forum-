@@ -175,7 +175,7 @@ span:after {
   }
   .side-nav {
     display: block;
-    width: 70px;
+    width: 150px;
     z-index: 2;
   }
   .side-nav ul li span:nth-child(2) {
@@ -478,4 +478,7 @@ height: 100vh;
 }
 #erreur{
   color: #ff0000;
+}
+.text{
+  margin: 976px;
 }

@@ -61,11 +61,7 @@
 
 				<?php elseif ($_SESSION['powerUser'] == 2) :?>
 					<li><a href="index.php?">Home</a></li>
-				
-					<li>
-					<i class="fas fa-list-alt"></i>
-					<a href="index.php?action=listChapters"> Rubrique</a>
-				</li>
+				<li><i class="fas fa-list-alt"></i><a href="index.php?action=listRubric"> Rubrique</a></li>
 						<li><a href="index.php?action=listSujet"> Sujets</a></li>
 					<li><a href="index.php?action=deconnexion">DECONNEXION</a></li>
 
@@ -100,6 +96,8 @@
 	</div>
 
 <?= $content ?>
+</div>
+
 
 <script src='App/public/js/CheckForm'></script>
 <script src='App/public/js/main.js'></script>
