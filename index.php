@@ -4,7 +4,6 @@ require "vendor/autoload.php";
 
 use \App\controller\ControllerFront;
 use \App\controller\ControllerBack;
-
 try {
 	//si séssion n'existe pas je start
 	if (!isset($_SESSION)) {
